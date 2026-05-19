@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1400">
+<title>Flowbittools Dashboard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#050816;
+color:white;
+display:flex;
+min-height:100vh;
+overflow-x:auto;
+}
+
+.sidebar{
+width:300px;
+background:#0b1020;
+padding:25px;
+border-right:1px solid rgba(255,255,255,0.05);
+position:fixed;
+left:0;
+top:0;
+height:100%;
+overflow:auto;
+}
+
+.logo{
+font-size:32px;
+font-weight:700;
+margin-bottom:35px;
+}
+
+.logo span{
+color:#5f7cff;
+}
+
+.menu-title{
+font-size:11px;
+opacity:.5;
+margin:25px 0 15px;
+text-transform:uppercase;
+}
+
+.sidebar a{
+display:block;
+padding:15px 18px;
+margin-bottom:12px;
+border-radius:18px;
+text-decoration:none;
+color:#d7d7d7;
+transition:.3s;
+background:#10172d;
+}
+
+.sidebar a:hover{
+background:linear-gradient(90deg,#1c2f61,#182342);
+transform:translateX(4px);
+}
+
+.main{
+margin-left:300px;
+padding:30px;
+width:calc(100% - 300px);
+min-width:1100px;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+}
+
+.token-box{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.token{
+background:#121c35;
+padding:12px 20px;
+border-radius:15px;
+font-weight:600;
+color:#5f7cff;
+}
+
+.avatar{
+width:50px;
+height:50px;
+border-radius:50%;
+background:linear-gradient(135deg,#5f7cff,#905cff);
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:700;
+}
+
+.hero{
+background:linear-gradient(135deg,#5f7cff,#905cff);
+padding:45px;
+border-radius:30px;
+margin-bottom:30px;
+}
+
+.hero h1{
+font-size:45px;
+margin-bottom:15px;
+}
+
+.hero p{
+max-width:700px;
+line-height:1.8;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+margin-bottom:35px;
+}
+
+.card{
+background:#0d1326;
+padding:25px;
+border-radius:25px;
+border:1px solid rgba(255,255,255,0.05);
+}
+
+.card h3{
+font-size:14px;
+opacity:.7;
+margin-bottom:15px;
+}
+
+.big{
+font-size:34px;
+font-weight:700;
+}
+
+.red{
+color:#ff6565;
+}
+
+.green{
+color:#00ff99;
+}
+
+button{
+padding:14px 24px;
+border:none;
+border-radius:15px;
+background:linear-gradient(135deg,#5f7cff,#905cff);
+color:white;
+font-weight:600;
+cursor:pointer;
+}
+
+.section-title{
+font-size:32px;
+margin:40px 0 20px;
+}
+
+.box{
+background:#0d1326;
+padding:30px;
+border-radius:30px;
+margin-bottom:25px;
+border:1px solid rgba(255,255,255,0.05);
+}
+
+.box h2{
+margin-bottom:20px;
+}
+
+.input-group{
+margin-bottom:20px;
+}
+
+label{
+display:block;
+margin-bottom:10px;
+opacity:.8;
+}
+
+input,
+textarea,
+select{
+width:100%;
+padding:16px;
+background:#121b35;
+border:none;
+outline:none;
+border-radius:16px;
+color:white;
+}
+
+textarea{
+min-height:130px;
+resize:none;
+}
+
+.history{
+margin-top:25px;
+}
+
+.history-item{
+background:#121b35;
+padding:16px;
+border-radius:16px;
+margin-bottom:10px;
+display:flex;
+justify-content:space-between;
+}
+
+.price-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+margin-bottom:20px;
+}
+
+.price-card{
+background:#121b35;
+padding:25px;
+border-radius:20px;
+}
+
+.notice{
+background:#121b35;
+padding:25px;
+border-radius:20px;
+line-height:1.9;
+}
+
+.locked{
+opacity:.5;
+pointer-events:none;
+filter:blur(1px);
+}
+
+.lock-text{
+margin-top:15px;
+padding:14px;
+background:#2b0d0d;
+border-radius:15px;
+color:#ff6f6f;
+font-weight:600;
+}
+
+.api-note{
+margin-top:15px;
+padding:20px;
+background:#121b35;
+border-radius:18px;
+line-height:1.8;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<div class="logo">
+Flowbit<span>tools</span>
+</div>
+
+<div class="menu-title">Dashboard</div>
+
+<a href="#">🏠 Dashboard</a>
+<a href="#topup">💰 Top Up Koin</a>
+<a href="#trafik">🚀 Traffic Service</a>
+<a href="#ai">🤖 AI Tools</a>
+<a href="#kelas">🎓 Chatbot Kelas</a>
+
+<div class="menu-title">Traffic Service</div>
+
+<a href="#shopee">🛍 Shopee Service</a>
+<a href="#tiktok">🎵 TikTok Service</a>
+<a href="#instagram">📸 Instagram Service</a>
+<a href="#facebook">📘 Facebook Service</a>
+
+<div class="menu-title">AI Tools</div>
+
+<a href="#caption">✍ Caption CTA</a>
+<a href="#ninja">🕵 Ninja Peniru</a>
+<a href="#avatar">🧑 Produk To Avatar</a>
+<a href="#video">🎬 Image To Video</a>
+<a href="#hook">⚡ Hook Analisis</a>
+
+</div>
+
+<div class="main">
+
+<div class="topbar">
+
+<div>
+<h1>Dashboard</h1>
+<p style="opacity:.6;margin-top:5px;">
+Selamat datang di Flowbittools
+</p>
+</div>
+
+<div class="token-box">
+<div class="token">🔥 15 Koin</div>
+<div class="avatar">M</div>
+</div>
+
+</div>
+
+<div class="hero">
+<h1>Flowbittools Premium Dashboard</h1>
+<p>
+Platform modern affiliator masa depan untuk traffic booster, AI tools, automation creator dan sistem creator premium.
+</p>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<h3>Status Akun</h3>
+<div class="big red">Belum Aktif</div>
+</div>
+
+<div class="card">
+<h3>Email User</h3>
+<div class="big">user@gmail.com</div>
+</div>
+
+<div class="card">
+<h3>Jumlah Koin</h3>
+<div class="big">15</div>
+</div>
+
+<div class="card">
+<h3>Verifikasi Akun</h3>
+<button onclick="window.location.href='admin.html'">
+Verifikasi Sekarang
+</button>
+</div>
+
+</div>
+
+<h2 class="section-title" id="topup">
+Top Up Koin
+</h2>
+
+<div class="box">
+
+<div class="price-grid">
+
+<div class="price-card">
+<h2>50 Koin</h2>
+<p>Rp 50.000</p>
+</div>
+
+<div class="price-card">
+<h2>100 Koin</h2>
+<p>Rp 100.000</p>
+</div>
+
+<div class="price-card">
+<h2>250 Koin</h2>
+<p>Rp 250.000</p>
+</div>
+
+</div>
+
+<div class="notice">
+
+<b>Pembayaran:</b>
+<br>
+Bank BRI
+<br>
+Thomas Ade Prabowo
+<br>
+676201000757500
+
+<br><br>
+
+<b>Konfirmasi WhatsApp:</b>
+<br>
+082131974325
+
+</div>
+
+</div>
+
+<h2 class="section-title" id="trafik">
+Traffic Service
+</h2>
+
+<div class="locked">
+
+<div class="box" id="shopee">
+
+<h2>Shopee Service</h2>
+
+<div class="input-group">
+<label>Link Video Shopee</label>
+<input type="text" placeholder="Masukan link video Shopee">
+</div>
+
+<div class="input-group">
+<label>Jumlah View</label>
+<select>
+<option>1000 View = 1 Koin</option>
+<option>2000 View = 2 Koin</option>
+<option>5000 View = 5 Koin</option>
+<option>10000 View = 10 Koin</option>
+</select>
+</div>
+
+<button>Booster Sekarang</button>
+
+<div class="history">
+
+<div class="history-item">
+<span>Order #SH001</span>
+<span class="green">Pending</span>
+</div>
+
+</div>
+
+</div>
+
+<div class="box" id="tiktok">
+
+<h2>Tiktok Service</h2>
+
+<div class="input-group">
+<label>Link Video TikTok</label>
+<input type="text">
+</div>
+
+<div class="input-group">
+<label>Jumlah View</label>
+<select>
+<option>1000 View = 1 Koin</option>
+<option>5000 View = 5 Koin</option>
+</select>
+</div>
+
+<button>Booster Sekarang</button>
+
+<div class="history">
+<div class="history-item">
+<span>Order #TK001</span>
+<span class="green">Pending</span>
+</div>
+</div>
+
+</div>
+
+<div class="box" id="instagram">
+
+<h2>Instagram Service</h2>
+
+<div class="input-group">
+<label>Link Instagram Reels</label>
+<input type="text">
+</div>
+
+<div class="input-group">
+<label>Jumlah View</label>
+<select>
+<option>1000 View = 1 Koin</option>
+<option>5000 View = 5 Koin</option>
+</select>
+</div>
+
+<button>Booster Sekarang</button>
+
+<div class="history">
+<div class="history-item">
+<span>Order #IG001</span>
+<span class="green">Pending</span>
+</div>
+</div>
+
+</div>
+
+<div class="box" id="facebook">
+
+<h2>Facebook Service</h2>
+
+<div class="input-group">
+<label>Link Facebook Reels</label>
+<input type="text">
+</div>
+
+<div class="input-group">
+<label>Jumlah View</label>
+<select>
+<option>1000 View = 1 Koin</option>
+<option>5000 View = 5 Koin</option>
+</select>
+</div>
+
+<button>Booster Sekarang</button>
+
+<div class="history">
+<div class="history-item">
+<span>Order #FB001</span>
+<span class="green">Pending</span>
+</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="lock-text">
+🔒 Semua fitur Traffic Service terkunci sebelum akun aktif
+</div>
+
+<h2 class="section-title" id="ai">
+AI Tools Affiliator
+</h2>
+
+<div class="box">
+
+<h2>API Key AI</h2>
+
+<div class="input-group">
+<label>Masukan API Key OpenAI / Gemini</label>
+<input type="text" placeholder="Masukan API Key">
+</div>
+
+<button>Simpan API Key</button>
+
+<div class="api-note">
+
+<b>Tutorial Ambil API Key Gratis:</b>
+
+<br><br>
+
+OpenAI :
+<br>
+https://platform.openai.com/api-keys
+
+<br><br>
+
+Gemini :
+<br>
+https://makersuite.google.com/app/apikey
+
+</div>
+
+</div>
+
+<div class="locked">
+
+<div class="box" id="caption">
+
+<h2>Caption CTA</h2>
+
+<div class="input-group">
+<label>Nama Produk</label>
+<input type="text">
+</div>
+
+<div class="input-group">
+<label>Usia Target</label>
+<input type="number">
+</div>
+
+<div class="input-group">
+<label>Deskripsi Produk</label>
+<textarea></textarea>
+</div>
+
+<button>Generate Caption</button>
+
+</div>
+
+<div class="box" id="ninja">
+
+<h2>Ninja Peniru</h2>
+
+<div class="input-group">
+<label>Upload Video Referensi Max 30 Detik</label>
+<input type="file">
+</div>
+
+<div class="input-group">
+<label>Hasil Analisa Prompt</label>
+<textarea placeholder="Hasil prompt gambar, video, dialog dan gerakan"></textarea>
+</div>
+
+<button>Analisa Video</button>
+
+</div>
+
+<div class="box" id="avatar">
+
+<h2>Produk To Avatar</h2>
+
+<div class="input-group">
+<label>Upload Foto Produk</label>
+<input type="file">
+</div>
+
+<div class="input-group">
+<label>Deskripsi Avatar</label>
+<textarea></textarea>
+</div>
+
+<div class="input-group">
+<label>Rasio</label>
+<select>
+<option>9:16</option>
+<option>1:1</option>
+<option>16:9</option>
+</select>
+</div>
+
+<button>Generate Avatar</button>
+
+</div>
+
+<div class="box" id="video">
+
+<h2>Image To Video</h2>
+
+<div class="input-group">
+<label>Upload Gambar</label>
+<input type="file">
+</div>
+
+<div class="input-group">
+<label>Deskripsi Video</label>
+<textarea></textarea>
+</div>
+
+<div class="input-group">
+<label>Dialog</label>
+<textarea></textarea>
+</div>
+
+<div class="input-group">
+<label>Durasi</label>
+<select>
+<option>10 Detik</option>
+<option>30 Detik</option>
+<option>1 Menit</option>
+</select>
+</div>
+
+<button>Generate Video</button>
+
+</div>
+
+<div class="box" id="hook">
+
+<h2>Hook Analisis</h2>
+
+<div class="input-group">
+<label>Nama Produk</label>
+<input type="text">
+</div>
+
+<div class="input-group">
+<label>Deskripsi Produk</label>
+<textarea></textarea>
+</div>
+
+<button>Generate Hook</button>
+
+</div>
+
+</div>
+
+<div class="lock-text">
+🔒 Semua AI Tools terkunci sebelum akun aktif
+</div>
+
+<h2 class="section-title" id="kelas">
+Chatbot Kelas
+</h2>
+
+<div class="locked">
+
+<div class="grid">
+
+<div class="card">
+<h3>Kelas Premium</h3>
+<div class="big">🔒</div>
+</div>
+
+<div class="card">
+<h3>Kelas Private</h3>
+<div class="big">🔒</div>
+</div>
+
+<div class="card">
+<h3>Kelas VIP</h3>
+<div class="big">🔒</div>
+</div>
+
+<div class="card">
+<h3>Kelas Exclusif</h3>
+<div class="big">🔒</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="lock-text">
+🔒 Semua kelas masih dikunci admin
+</div>
+
+</div>
+
+</body>
+</html>
