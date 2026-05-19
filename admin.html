@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Flowbittools Admin</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#050816;
+color:white;
+overflow-x:hidden;
+}
+
+/* LOGIN */
+
+.login-page{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+.login-box{
+width:100%;
+max-width:420px;
+background:#0d1327;
+padding:35px;
+border-radius:28px;
+box-shadow:0 0 40px rgba(125,95,255,.2);
+}
+
+.logo{
+font-size:40px;
+font-weight:700;
+margin-bottom:15px;
+text-align:center;
+}
+
+.logo span{
+color:#7d5fff;
+}
+
+.login-box p{
+text-align:center;
+margin-bottom:25px;
+color:#b7bdd8;
+}
+
+input{
+width:100%;
+padding:16px;
+border:none;
+outline:none;
+background:#131d3b;
+border-radius:14px;
+color:white;
+margin-bottom:15px;
+}
+
+button{
+border:none;
+cursor:pointer;
+}
+
+.login-btn{
+width:100%;
+padding:16px;
+border-radius:14px;
+background:linear-gradient(45deg,#7d5fff,#9d4dff);
+color:white;
+font-size:16px;
+font-weight:600;
+}
+
+/* DASHBOARD */
+
+.dashboard{
+display:none;
+}
+
+.sidebar{
+width:270px;
+background:#0d1327;
+position:fixed;
+top:0;
+left:0;
+bottom:0;
+padding:25px;
+overflow:auto;
+border-right:1px solid rgba(255,255,255,.05);
+transition:.3s;
+z-index:999;
+}
+
+.menu button{
+width:100%;
+padding:16px;
+background:#131d3b;
+margin-bottom:14px;
+border-radius:14px;
+color:white;
+font-size:15px;
+text-align:left;
+}
+
+.menu button:hover{
+background:#7d5fff;
+}
+
+.main{
+margin-left:270px;
+padding:30px;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+}
+
+.topbar h1{
+font-size:32px;
+}
+
+.logout{
+background:#ff4d6d;
+padding:12px 18px;
+border-radius:12px;
+color:white;
+font-weight:600;
+}
+
+.card{
+background:#0d1327;
+padding:25px;
+border-radius:24px;
+margin-bottom:20px;
+border:1px solid rgba(255,255,255,.05);
+}
+
+.card h2{
+margin-bottom:20px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:20px;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+margin-bottom:25px;
+}
+
+.stat{
+background:#0d1327;
+padding:25px;
+border-radius:24px;
+}
+
+.stat h3{
+font-size:14px;
+margin-bottom:10px;
+color:#b7bdd8;
+}
+
+.stat h1{
+font-size:32px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+table tr{
+border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+table td{
+padding:14px;
+font-size:14px;
+}
+
+.btn{
+padding:8px 12px;
+border-radius:10px;
+font-size:13px;
+font-weight:600;
+color:white;
+}
+
+.green{
+background:#00c853;
+}
+
+.red{
+background:#ff4d6d;
+}
+
+.blue{
+background:#7d5fff;
+}
+
+.status{
+padding:6px 10px;
+border-radius:30px;
+font-size:12px;
+font-weight:600;
+display:inline-block;
+}
+
+.active{
+background:#003d1f;
+color:#00ff84;
+}
+
+.nonactive{
+background:#3d0000;
+color:#ff4d6d;
+}
+
+.history-box{
+max-height:350px;
+overflow:auto;
+}
+
+.history-item{
+padding:15px;
+background:#131d3b;
+border-radius:14px;
+margin-bottom:12px;
+}
+
+.mobile{
+display:none;
+position:fixed;
+top:20px;
+left:20px;
+background:#7d5fff;
+padding:10px 14px;
+border-radius:10px;
+color:white;
+z-index:9999;
+}
+
+.section{
+display:none;
+}
+
+.section.active{
+display:block;
+}
+
+@media(max-width:900px){
+
+.mobile{
+display:block;
+}
+
+.sidebar{
+left:-100%;
+}
+
+.sidebar.show{
+left:0;
+}
+
+.main{
+margin-left:0;
+padding-top:80px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+
+<div class="login-page" id="loginPage">
+
+<div class="login-box">
+
+<div class="logo">
+Flowbit<span>tools</span>
+</div>
+
+<p>
+Admin Panel Secure Access
+</p>
+
+<input type="text" id="adminUser" placeholder="Username">
+
+<input type="password" id="adminPass" placeholder="Password">
+
+<button class="login-btn" onclick="loginAdmin()">
+Masuk Admin
+</button>
+
+</div>
+
+</div>
+
+<!-- DASHBOARD -->
+
+<div class="dashboard" id="dashboard">
+
+<button class="mobile" onclick="toggleMenu()">☰</button>
+
+<div class="sidebar" id="sidebar">
+
+<div class="logo">
+Flowbit<span>tools</span>
+</div>
+
+<div class="menu">
+
+<button onclick="showSection('member')">
+👥 Member
+</button>
+
+<button onclick="showSection('coin')">
+🪙 Koin
+</button>
+
+<button onclick="showSection('history')">
+📊 History
+</button>
+
+<button onclick="showSection('apikey')">
+🔑 API Key
+</button>
+
+<button onclick="showSection('assistant')">
+🛡 Asisten Admin
+</button>
+
+</div>
+
+</div>
+
+<div class="main">
+
+<div class="topbar">
+
+<h1>
+Admin Dashboard
+</h1>
+
+<button class="logout" onclick="logout()">
+Logout
+</button>
+
+</div>
+
+<!-- STATS -->
+
+<div class="stats">
+
+<div class="stat">
+<h3>Total Member</h3>
+<h1 id="totalMember">0</h1>
+</div>
+
+<div class="stat">
+<h3>Total Koin</h3>
+<h1 id="totalCoin">0</h1>
+</div>
+
+<div class="stat">
+<h3>Total Pendapatan</h3>
+<h1 id="totalMoney">Rp 0</h1>
+</div>
+
+</div>
+
+<!-- MEMBER -->
+
+<div class="section active" id="member">
+
+<div class="card">
+
+<h2>Daftar Member</h2>
+
+<table id="memberTable">
+
+<tr>
+<td>Username</td>
+<td>WA</td>
+<td>Password</td>
+<td>Status</td>
+<td>Koin</td>
+<td>Aksi</td>
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- KOIN -->
+
+<div class="section" id="coin">
+
+<div class="grid">
+
+<div class="card">
+
+<h2>Tambah / Kurangi Koin</h2>
+
+<input type="text" id="coinUsername" placeholder="Username">
+
+<input type="number" id="coinJumlah" placeholder="Jumlah Koin">
+
+<select id="coinAction">
+
+<option value="add">
+Tambah Koin
+</option>
+
+<option value="remove">
+Kurangi Koin
+</option>
+
+</select>
+
+<button class="login-btn" onclick="updateCoin()">
+Simpan
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>History Koin</h2>
+
+<div class="history-box" id="coinHistory"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- HISTORY -->
+
+<div class="section" id="history">
+
+<div class="card">
+
+<h2>Aktivitas User</h2>
+
+<div class="history-box" id="historyList"></div>
+
+</div>
+
+</div>
+
+<!-- API -->
+
+<div class="section" id="apikey">
+
+<div class="grid">
+
+<div class="card">
+
+<h2>Traffic Service</h2>
+
+<input type="text" placeholder="API KEY SMM">
+
+<input type="text" placeholder="Shopee Service ID">
+
+<input type="text" placeholder="Tiktok Service ID">
+
+<input type="text" placeholder="Instagram Service ID">
+
+<input type="text" placeholder="Facebook Service ID">
+
+<button class="login-btn">
+Simpan
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>AI Tools</h2>
+
+<input type="text" placeholder="API KEY AI">
+
+<button class="login-btn">
+Simpan
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ASISTEN -->
+
+<div class="section" id="assistant">
+
+<div class="card">
+
+<h2>Buat Asisten Admin</h2>
+
+<input type="text" id="assistantUsername" placeholder="Username">
+
+<input type="password" id="assistantPassword" placeholder="Password">
+
+<button class="login-btn" onclick="createAssistant()">
+Tambah Asisten
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const SUPABASE_URL =
+"https://nluwpbdgsctuxuasnkti.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_jYSLtUH4UKxt_QQRhGPlgQ_N3HQ5gFu";
+
+const supabaseClient =
+supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+function toggleMenu(){
+
+document.getElementById("sidebar")
+.classList.toggle("show");
+
+}
+
+function showSection(id){
+
+document.querySelectorAll(".section")
+.forEach(el=>el.classList.remove("active"));
+
+document.getElementById(id)
+.classList.add("active");
+
+if(window.innerWidth < 900){
+
+document.getElementById("sidebar")
+.classList.remove("show");
+
+}
+
+}
+
+/* LOGIN */
+
+async function loginAdmin(){
+
+let username =
+document.getElementById("adminUser").value;
+
+let password =
+document.getElementById("adminPass").value;
+
+const { data } = await supabaseClient
+.from("admins")
+.select("*")
+.eq("username",username)
+.eq("password",password)
+.single();
+
+if(!data){
+
+alert("Username atau password salah");
+
+return;
+
+}
+
+localStorage.setItem(
+"admin_login",
+"true"
+);
+
+localStorage.setItem(
+"admin_role",
+data.role
+);
+
+document.getElementById("loginPage")
+.style.display="none";
+
+document.getElementById("dashboard")
+.style.display="block";
+
+loadUsers();
+loadStats();
+loadHistory();
+
+if(data.role == "assistant"){
+
+document.querySelector(
+'button[onclick="showSection(\'apikey\')"]'
+).style.display="none";
+
+document.querySelector(
+'button[onclick="showSection(\'coin\')"]'
+).style.display="none";
+
+}
+
+}
+
+/* AUTO LOGIN */
+
+if(localStorage.getItem("admin_login")=="true"){
+
+document.getElementById("loginPage")
+.style.display="none";
+
+document.getElementById("dashboard")
+.style.display="block";
+
+loadUsers();
+loadStats();
+loadHistory();
+
+}
+
+/* LOGOUT */
+
+function logout(){
+
+localStorage.removeItem("admin_login");
+
+location.reload();
+
+}
+
+/* USERS */
+
+async function loadUsers(){
+
+const { data } = await supabaseClient
+.from("users")
+.select("*");
+
+let html=`
+
+<tr>
+<td>Username</td>
+<td>WA</td>
+<td>Password</td>
+<td>Status</td>
+<td>Koin</td>
+<td>Aksi</td>
+</tr>
+
+`;
+
+let totalCoin=0;
+
+data.forEach(user=>{
+
+totalCoin += Number(user.coin || 0);
+
+html += `
+
+<tr>
+
+<td>${user.username}</td>
+
+<td>
+<a href="https://wa.me/${user.wa}"
+style="color:#7d5fff;">
+${user.wa}
+</a>
+</td>
+
+<td>${user.password}</td>
+
+<td>
+
+<span class="status ${user.active ? 'active':'nonactive'}">
+
+${user.active ? 'Aktif':'Nonaktif'}
+
+</span>
+
+</td>
+
+<td>${user.coin || 0}</td>
+
+<td>
+
+<button class="btn green"
+onclick="setStatus(${user.id},true)">
+Aktif
+</button>
+
+<button class="btn red"
+onclick="setStatus(${user.id},false)">
+Nonaktif
+</button>
+
+<button class="btn blue"
+onclick="deleteUser(${user.id})">
+Hapus
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+document.getElementById("memberTable")
+.innerHTML=html;
+
+document.getElementById("totalMember")
+.innerText=data.length;
+
+document.getElementById("totalCoin")
+.innerText=totalCoin;
+
+document.getElementById("totalMoney")
+.innerText=
+"Rp "+(totalCoin*3000)
+.toLocaleString("id-ID");
+
+}
+
+/* STATUS */
+
+async function setStatus(id,status){
+
+await supabaseClient
+.from("users")
+.update({active:status})
+.eq("id",id);
+
+loadUsers();
+
+}
+
+/* DELETE */
+
+async function deleteUser(id){
+
+await supabaseClient
+.from("users")
+.delete()
+.eq("id",id);
+
+loadUsers();
+
+}
+
+/* COIN */
+
+async function updateCoin(){
+
+let username=
+document.getElementById("coinUsername").value;
+
+let jumlah=
+parseInt(
+document.getElementById("coinJumlah").value
+);
+
+let action=
+document.getElementById("coinAction").value;
+
+const { data } = await supabaseClient
+.from("users")
+.select("*")
+.eq("username",username)
+.single();
+
+if(!data){
+
+alert("User tidak ditemukan");
+
+return;
+
+}
+
+let current =
+Number(data.coin || 0);
+
+let finalCoin =
+action=="add"
+? current + jumlah
+: current - jumlah;
+
+if(finalCoin < 0){
+finalCoin = 0;
+}
+
+await supabaseClient
+.from("users")
+.update({coin:finalCoin})
+.eq("username",username);
+
+await supabaseClient
+.from("history")
+.insert([{
+
+username:username,
+
+action:
+(action=="add"
+? "Admin menambah "
+: "Admin mengurangi ")
++ jumlah + " koin",
+
+created_at:new Date()
+
+}]);
+
+alert("Koin berhasil diupdate");
+
+loadUsers();
+loadHistory();
+
+}
+
+/* HISTORY */
+
+async function loadHistory(){
+
+const { data } = await supabaseClient
+.from("history")
+.select("*");
+
+let html="";
+
+data.forEach(item=>{
+
+html += `
+
+<div class="history-item">
+
+<b>${item.username}</b>
+
+<br><br>
+
+${item.action}
+
+<br><br>
+
+<small>${item.created_at}</small>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("historyList")
+.innerHTML=html;
+
+document.getElementById("coinHistory")
+.innerHTML=html;
+
+}
+
+/* ASSISTANT */
+
+async function createAssistant(){
+
+let username =
+document.getElementById("assistantUsername").value;
+
+let password =
+document.getElementById("assistantPassword").value;
+
+await supabaseClient
+.from("admins")
+.insert([{
+
+username,
+password,
+role:"assistant"
+
+}]);
+
+alert("Asisten admin berhasil dibuat");
+
+}
+
+/* STATS */
+
+function loadStats(){
+
+loadUsers();
+
+}
+
+</script>
+
+</body>
+</html>
