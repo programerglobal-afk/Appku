@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flowbittools Admin</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:sans-serif;
+}
+
+body{
+background:#050816;
+color:white;
+}
+
+.login-page{
+width:100%;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.login-box{
+width:95%;
+max-width:400px;
+background:#0d1327;
+padding:30px;
+border-radius:20px;
+box-shadow:0 0 30px rgba(120,0,255,.3);
+}
+
+.login-box h1{
+margin-bottom:20px;
+text-align:center;
+}
+
+.login-box input{
+width:100%;
+padding:14px;
+margin-top:10px;
+border:none;
+border-radius:12px;
+background:#151c35;
+color:white;
+}
+
+.login-box button{
+width:100%;
+padding:14px;
+margin-top:20px;
+border:none;
+border-radius:12px;
+background:linear-gradient(45deg,#7b2ff7,#f107a3);
+color:white;
+font-weight:bold;
+}
+
+.dashboard{
+display:none;
+}
+
+.sidebar{
+position:fixed;
+left:0;
+top:0;
+width:230px;
+height:100vh;
+background:#081028;
+padding:20px;
+}
+
+.logo{
+font-size:28px;
+font-weight:bold;
+margin-bottom:30px;
+}
+
+.menu button{
+width:100%;
+padding:15px;
+margin-bottom:10px;
+border:none;
+border-radius:14px;
+background:#111c3f;
+color:white;
+text-align:left;
+}
+
+.content{
+margin-left:250px;
+padding:25px;
+}
+
+.card{
+background:#0d1327;
+padding:20px;
+border-radius:20px;
+margin-bottom:20px;
+overflow:auto;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+padding:12px;
+border-bottom:1px solid #1f2a50;
+text-align:left;
+font-size:14px;
+}
+
+.action-btn{
+padding:8px 12px;
+border:none;
+border-radius:10px;
+margin:2px;
+color:white;
+font-size:12px;
+}
+
+.green{
+background:green;
+}
+
+.red{
+background:red;
+}
+
+.blue{
+background:#4b7bff;
+}
+
+input.api{
+width:100%;
+padding:12px;
+margin-top:10px;
+background:#151c35;
+border:none;
+border-radius:10px;
+color:white;
+}
+
+.savebtn{
+padding:12px 20px;
+margin-top:15px;
+background:#7b2ff7;
+border:none;
+border-radius:12px;
+color:white;
+}
+
+.stat-box{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
+margin-bottom:20px;
+}
+
+.stat{
+background:#0d1327;
+padding:20px;
+border-radius:20px;
+}
+
+.stat h2{
+margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="login-page" id="loginPage">
+
+<div class="login-box">
+
+<h1>Admin Login</h1>
+
+<input type="text" id="username" placeholder="Username">
+
+<input type="password" id="password" placeholder="Password">
+
+<button onclick="loginAdmin()">Masuk Dashboard</button>
+
+<p id="status" style="margin-top:15px;text-align:center;color:red;"></p>
+
+</div>
+
+</div>
+
+<div class="dashboard" id="dashboard">
+
+<div class="sidebar">
+
+<div class="logo">Flowbittools</div>
+
+<div class="menu">
+
+<button onclick="showPage('member')">👤 Member</button>
+
+<button onclick="showPage('coin')">🪙 Koin</button>
+
+<button onclick="showPage('history')">📜 History User</button>
+
+<button onclick="showPage('apikey')">🔑 API Key</button>
+
+<button onclick="showPage('assistant')">🛡 Asisten Admin</button>
+
+<button onclick="logout()">🚪 Logout</button>
+
+</div>
+
+</div>
+
+<div class="content">
+
+<div class="stat-box">
+
+<div class="stat">
+<p>Total Member</p>
+<h2 id="totalUser">0</h2>
+</div>
+
+<div class="stat">
+<p>Total Koin</p>
+<h2 id="totalCoin">0</h2>
+</div>
+
+<div class="stat">
+<p>Total Pendapatan</p>
+<h2 id="totalMoney">Rp0</h2>
+</div>
+
+</div>
+
+<div id="member" class="card">
+
+<h2>Daftar Member</h2>
+
+<br>
+
+<table>
+
+<thead>
+
+<tr>
+<th>Username</th>
+<th>WA</th>
+<th>Password</th>
+<th>Status</th>
+<th>Koin</th>
+<th>Aksi</th>
+</tr>
+
+</thead>
+
+<tbody id="userTable"></tbody>
+
+</table>
+
+</div>
+
+<div id="coin" class="card" style="display:none;">
+
+<h2>History Koin</h2>
+
+<br>
+
+<table>
+
+<thead>
+<tr>
+<th>User</th>
+<th>Koin</th>
+<th>Rupiah</th>
+</tr>
+</thead>
+
+<tbody id="coinTable"></tbody>
+
+</table>
+
+</div>
+
+<div id="history" class="card" style="display:none;">
+
+<h2>History Aktivitas User</h2>
+
+<br>
+
+<table>
+
+<thead>
+<tr>
+<th>User</th>
+<th>Aktivitas</th>
+<th>Waktu</th>
+</tr>
+</thead>
+
+<tbody id="historyTable"></tbody>
+
+</table>
+
+</div>
+
+<div id="apikey" class="card" style="display:none;">
+
+<h2>Pengaturan API</h2>
+
+<input class="api" id="smm_api" placeholder="API Key Traffic Service">
+
+<input class="api" id="shopee_id" placeholder="Shopee Service ID">
+
+<input class="api" id="tiktok_id" placeholder="Tiktok Service ID">
+
+<input class="api" id="instagram_id" placeholder="Instagram Service ID">
+
+<input class="api" id="facebook_id" placeholder="Facebook Service ID">
+
+<input class="api" id="ai_api" placeholder="AI Tools API Key">
+
+<button class="savebtn">Simpan</button>
+
+</div>
+
+<div id="assistant" class="card" style="display:none;">
+
+<h2>Asisten Admin</h2>
+
+<input class="api" id="assistant_user" placeholder="Username">
+
+<input class="api" id="assistant_pass" placeholder="Password">
+
+<button class="savebtn" onclick="buatAdmin()">Tambah Admin</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const supabaseUrl = "https://nluwpbdgsctuxuasnkti.supabase.co";
+
+const supabaseKey = "sb_publishable_jYSLtUH4UKxt_QQRhGPlgQ_N3HQ5gFu";
+
+const client = supabase.createClient(supabaseUrl,supabaseKey);
+
+window.onload=()=>{
+
+document.getElementById("loginPage").style.display="flex";
+
+document.getElementById("dashboard").style.display="none";
+
+}
+
+async function loginAdmin(){
+
+let username=document.getElementById("username").value;
+
+let password=document.getElementById("password").value;
+
+const { data } = await client
+.from("admins")
+.select("*")
+.eq("username",username)
+.eq("password",password)
+.single();
+
+if(data){
+
+document.getElementById("loginPage").style.display="none";
+
+document.getElementById("dashboard").style.display="block";
+
+loadUsers();
+loadCoin();
+loadHistory();
+
+}else{
+
+document.getElementById("status").innerHTML="Login gagal";
+
+}
+
+}
+
+function logout(){
+
+location.reload();
+
+}
+
+function showPage(id){
+
+document.getElementById("member").style.display="none";
+document.getElementById("coin").style.display="none";
+document.getElementById("history").style.display="none";
+document.getElementById("apikey").style.display="none";
+document.getElementById("assistant").style.display="none";
+
+document.getElementById(id).style.display="block";
+
+}
+
+async function loadUsers(){
+
+const { data } = await client
+.from("users")
+.select("*");
+
+let html='';
+
+let totalCoin=0;
+
+data.forEach(user=>{
+
+totalCoin += Number(user.coin || 0);
+
+html += `
+<tr>
+
+<td>${user.username}</td>
+
+<td>
+<a href="https://wa.me/${user.wa}" target="_blank" style="color:#4b7bff;">
+${user.wa}
+</a>
+</td>
+
+<td>${user.password}</td>
+
+<td>${user.active}</td>
+
+<td>${user.coin}</td>
+
+<td>
+
+<button class="action-btn green" onclick="addCoin('${user.id}')">+Koin</button>
+
+<button class="action-btn red" onclick="minCoin('${user.id}')">-Koin</button>
+
+<button class="action-btn blue" onclick="toggleUser('${user.id}','${user.active}')">
+Aktif/Nonaktif
+</button>
+
+<button class="action-btn red" onclick="hapusUser('${user.id}')">
+Hapus
+</button>
+
+</td>
+
+</tr>
+`;
+
+});
+
+document.getElementById("userTable").innerHTML=html;
+
+document.getElementById("totalUser").innerHTML=data.length;
+
+document.getElementById("totalCoin").innerHTML=totalCoin;
+
+document.getElementById("totalMoney").innerHTML=
+"Rp"+(totalCoin*3000).toLocaleString("id-ID");
+
+}
+
+async function addCoin(id){
+
+let jumlah=prompt("Tambah koin");
+
+if(!jumlah) return;
+
+const { data:user } = await client
+.from("users")
+.select("*")
+.eq("id",id)
+.single();
+
+let newCoin = Number(user.coin)+Number(jumlah);
+
+await client
+.from("users")
+.update({coin:newCoin})
+.eq("id",id);
+
+await client
+.from("coin_history")
+.insert([{
+username:user.username,
+coin:jumlah,
+rupiah:Number(jumlah)*3000
+}]);
+
+loadUsers();
+loadCoin();
+
+}
+
+async function minCoin(id){
+
+let jumlah=prompt("Kurangi koin");
+
+if(!jumlah) return;
+
+const { data:user } = await client
+.from("users")
+.select("*")
+.eq("id",id)
+.single();
+
+let newCoin = Number(user.coin)-Number(jumlah);
+
+await client
+.from("users")
+.update({coin:newCoin})
+.eq("id",id);
+
+loadUsers();
+
+}
+
+async function toggleUser(id,status){
+
+let newStatus = status=="aktif" ? "nonaktif" : "aktif";
+
+await client
+.from("users")
+.update({active:newStatus})
+.eq("id",id);
+
+loadUsers();
+
+}
+
+async function hapusUser(id){
+
+await client
+.from("users")
+.delete()
+.eq("id",id);
+
+loadUsers();
+
+}
+
+async function loadCoin(){
+
+const { data } = await client
+.from("coin_history")
+.select("*");
+
+let html='';
+
+data.forEach(item=>{
+
+html += `
+<tr>
+<td>${item.username}</td>
+<td>${item.coin}</td>
+<td>Rp${Number(item.rupiah).toLocaleString("id-ID")}</td>
+</tr>
+`;
+
+});
+
+document.getElementById("coinTable").innerHTML=html;
+
+}
+
+async function loadHistory(){
+
+const { data } = await client
+.from("history")
+.select("*");
+
+let html='';
+
+data.forEach(item=>{
+
+html += `
+<tr>
+<td>${item.username}</td>
+<td>${item.action}</td>
+<td>${item.created_at}</td>
+</tr>
+`;
+
+});
+
+document.getElementById("historyTable").innerHTML=html;
+
+}
+
+async function buatAdmin(){
+
+let username=document.getElementById("assistant_user").value;
+
+let password=document.getElementById("assistant_pass").value;
+
+await client
+.from("admins")
+.insert([{
+username,
+password,
+role:"assistant"
+}]);
+
+alert("Asisten admin dibuat");
+
+}
+
+</script>
+
+</body>
+</html>
