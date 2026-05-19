@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Flowbittools Dashboard</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-
 <style>
+
 *{
 margin:0;
 padding:0;
@@ -18,34 +17,88 @@ font-family:sans-serif;
 body{
 background:#020617;
 color:white;
-display:flex;
-min-height:100vh;
 overflow-x:hidden;
 }
 
-.sidebar{
-width:260px;
-background:#081028;
-padding:20px;
+/* MOBILE HEADER */
+
+.mobile-header{
 position:fixed;
-height:100vh;
-overflow:auto;
-border-right:1px solid rgba(255,255,255,0.05);
+top:0;
+left:0;
+width:100%;
+height:70px;
+background:#081028;
+display:flex;
+align-items:center;
+padding:0 18px;
+z-index:999;
+border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+.menu-btn{
+background:none;
+border:none;
+color:white;
+font-size:28px;
+cursor:pointer;
+margin-right:14px;
 }
 
 .logo{
 font-size:28px;
 font-weight:bold;
-margin-bottom:30px;
 background:linear-gradient(to right,#7c3aed,#ff0080);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
 
-.menu button{
+/* SIDEBAR */
+
+.sidebar{
+position:fixed;
+top:0;
+left:-280px;
+width:260px;
+height:100vh;
+background:#081028;
+padding:20px;
+transition:0.3s;
+z-index:1000;
+overflow:auto;
+border-right:1px solid rgba(255,255,255,0.05);
+}
+
+.sidebar.active{
+left:0;
+}
+
+.sidebar-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+}
+
+.sidebar-top h2{
+font-size:28px;
+background:linear-gradient(to right,#7c3aed,#ff0080);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.close-btn{
+background:none;
+border:none;
+color:white;
+font-size:24px;
+cursor:pointer;
+}
+
+.sidebar button{
 width:100%;
-padding:14px;
-margin-bottom:12px;
+padding:15px;
+margin-bottom:14px;
 border:none;
 border-radius:14px;
 background:#0f172a;
@@ -55,83 +108,148 @@ cursor:pointer;
 transition:0.3s;
 }
 
-.menu button:hover{
+.sidebar button:hover{
 background:linear-gradient(to right,#7c3aed,#ff0080);
 }
 
-.main{
-margin-left:260px;
-padding:20px;
+/* OVERLAY */
+
+.overlay{
+position:fixed;
+top:0;
+left:0;
 width:100%;
+height:100%;
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(4px);
+display:none;
+z-index:900;
 }
 
-.topcards{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-gap:20px;
-margin-bottom:25px;
+.overlay.active{
+display:block;
 }
+
+/* MAIN */
+
+.main{
+padding:90px 18px 30px;
+}
+
+/* CARD */
 
 .card{
 background:#081028;
 padding:20px;
-border-radius:18px;
+border-radius:22px;
+margin-bottom:18px;
 border:1px solid rgba(255,255,255,0.05);
+box-shadow:0 0 20px rgba(124,58,237,0.08);
 }
 
 .card h3{
 font-size:14px;
 color:#aaa;
-margin-bottom:10px;
+margin-bottom:12px;
 }
 
 .card h1{
-font-size:30px;
+font-size:38px;
 }
+
+/* SECTION */
 
 .section{
 background:#081028;
 padding:20px;
-border-radius:18px;
-margin-bottom:25px;
+border-radius:22px;
+margin-bottom:18px;
+border:1px solid rgba(255,255,255,0.05);
+box-shadow:0 0 20px rgba(124,58,237,0.08);
 }
 
 .section h2{
-margin-bottom:20px;
+font-size:24px;
+margin-bottom:18px;
 }
+
+/* GRID */
+
+.grid{
+display:grid;
+grid-template-columns:1fr;
+gap:18px;
+}
+
+/* INPUT */
 
 .input{
 width:100%;
-padding:14px;
+padding:15px;
 border:none;
 outline:none;
-border-radius:12px;
+border-radius:14px;
 background:#0f172a;
 color:white;
 margin-bottom:14px;
+font-size:15px;
 }
 
 .select{
 width:100%;
-padding:14px;
+padding:15px;
 border:none;
 outline:none;
-border-radius:12px;
+border-radius:14px;
 background:#0f172a;
 color:white;
 margin-bottom:14px;
+font-size:15px;
 }
 
+/* BUTTON */
+
 .btn{
-padding:14px;
 width:100%;
+padding:15px;
 border:none;
 border-radius:14px;
 background:linear-gradient(to right,#7c3aed,#ff0080);
 color:white;
 font-weight:bold;
+font-size:15px;
 cursor:pointer;
+transition:0.3s;
 }
+
+.btn:hover{
+opacity:0.9;
+transform:scale(0.98);
+}
+
+/* STATUS */
+
+.status{
+padding:8px 14px;
+border-radius:30px;
+font-size:13px;
+display:inline-block;
+margin-top:10px;
+}
+
+.pending{
+background:orange;
+}
+
+.active-status{
+background:green;
+}
+
+.lock{
+background:red;
+}
+
+/* TABLE */
 
 .table{
 overflow:auto;
@@ -150,126 +268,147 @@ font-size:14px;
 
 table td{
 padding:14px;
-text-align:center;
 border-bottom:1px solid rgba(255,255,255,0.05);
-}
-
-.status{
-padding:6px 12px;
-border-radius:20px;
-font-size:12px;
-}
-
-.pending{
-background:orange;
-}
-
-.active{
-background:green;
-}
-
-.locked{
-background:red;
-}
-
-.boxgrid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-gap:20px;
+text-align:center;
 }
 
 .small{
 font-size:13px;
 color:#aaa;
-margin-top:10px;
+margin-top:12px;
+line-height:1.6;
 }
 
-@media(max-width:900px){
+/* PAGE */
 
-.sidebar{
-width:100%;
-height:auto;
-position:relative;
+.page{
+display:none;
 }
 
-.main{
-margin-left:0;
+#dashboard{
+display:block;
 }
 
-body{
-flex-direction:column;
-}
-
-}
 </style>
 </head>
 
 <body>
 
-<div class="sidebar">
+<!-- HEADER -->
+
+<div class="mobile-header">
+
+<button class="menu-btn" onclick="toggleSidebar()">
+☰
+</button>
 
 <div class="logo">
 Flowbittools
 </div>
 
-<div class="menu">
-<button onclick="showSection('dashboard')">🏠 Dashboard</button>
-<button onclick="showSection('trafik')">🚀 Trafik Service</button>
-<button onclick="showSection('ai')">🤖 AI Tools</button>
-<button onclick="showSection('kelas')">🎓 Chatbot Kelas</button>
-<button onclick="showSection('topup')">💰 Top Up Koin</button>
-<button onclick="logout()">🚪 Logout</button>
 </div>
 
+<!-- SIDEBAR -->
+
+<div class="sidebar" id="sidebar">
+
+<div class="sidebar-top">
+
+<h2>Flowbittools</h2>
+
+<button class="close-btn" onclick="toggleSidebar()">
+✕
+</button>
+
 </div>
+
+<button onclick="showPage('dashboard')">
+🏠 Dashboard
+</button>
+
+<button onclick="showPage('trafik')">
+🚀 Trafik Service
+</button>
+
+<button onclick="showPage('ai')">
+🤖 AI Tools
+</button>
+
+<button onclick="showPage('kelas')">
+🎓 Chatbot Kelas
+</button>
+
+<button onclick="showPage('topup')">
+💰 Top Up Koin
+</button>
+
+<button onclick="logout()">
+🚪 Logout
+</button>
+
+</div>
+
+<!-- OVERLAY -->
+
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<!-- MAIN -->
 
 <div class="main">
 
-<div id="dashboard" class="page">
+<!-- DASHBOARD -->
 
-<div class="topcards">
+<div id="dashboard" class="page">
 
 <div class="card">
 <h3>Status Akun</h3>
-<h1 id="statusUser">Pending</h1>
+<h1>Pending</h1>
+<div class="status pending">Menunggu Verifikasi</div>
 </div>
 
 <div class="card">
 <h3>Total Koin</h3>
-<h1 id="koinUser">0</h1>
+<h1>0</h1>
 </div>
 
 <div class="card">
 <h3>Email User</h3>
-<h1 id="emailUser">-</h1>
-</div>
-
+<h1 style="font-size:24px;">user@gmail.com</h1>
 </div>
 
 <div class="section">
-<h2>Verifikasi Akun</h2>
 
-<p style="margin-bottom:15px;color:#aaa;">
-Sebelum akun aktif semua fitur akan terkunci.
+<h2>Verifikasi Sekarang</h2>
+
+<p class="small">
+Semua fitur dikunci sebelum akun diaktifkan admin.
 </p>
 
+<br>
+
 <a href="https://wa.me/6282131974325" target="_blank">
-<button class="btn">Verifikasi Sekarang</button>
+
+<button class="btn">
+Hubungi Admin WhatsApp
+</button>
+
 </a>
 
 </div>
 
 </div>
 
-<div id="trafik" class="page" style="display:none;">
+<!-- TRAFIK -->
 
-<div class="boxgrid">
+<div id="trafik" class="page">
+
+<div class="grid">
 
 <div class="section">
 
 <h2>Shopee Service</h2>
 
-<input type="text" class="input" placeholder="Link Video Shopee">
+<input type="text" class="input" placeholder="Masukan Link Shopee">
 
 <select class="select">
 <option>1000 View = 1 Koin</option>
@@ -278,10 +417,13 @@ Sebelum akun aktif semua fitur akan terkunci.
 <option>10000 View = 10 Koin</option>
 </select>
 
-<button class="btn">Booster Sekarang</button>
+<button class="btn">
+Booster Sekarang
+</button>
 
 <p class="small">
-Status: Pending / Proses / Masuk
+Status:
+Pending / Diproses / Masuk
 </p>
 
 </div>
@@ -290,7 +432,7 @@ Status: Pending / Proses / Masuk
 
 <h2>Tiktok Service</h2>
 
-<input type="text" class="input" placeholder="Link Video Tiktok">
+<input type="text" class="input" placeholder="Masukan Link Tiktok">
 
 <select class="select">
 <option>1000 View = 1 Koin</option>
@@ -299,10 +441,13 @@ Status: Pending / Proses / Masuk
 <option>10000 View = 10 Koin</option>
 </select>
 
-<button class="btn">Booster Sekarang</button>
+<button class="btn">
+Booster Sekarang
+</button>
 
 <p class="small">
-Status: Pending / Proses / Masuk
+Status:
+Pending / Diproses / Masuk
 </p>
 
 </div>
@@ -311,7 +456,7 @@ Status: Pending / Proses / Masuk
 
 <h2>Instagram Service</h2>
 
-<input type="text" class="input" placeholder="Link Video Instagram">
+<input type="text" class="input" placeholder="Masukan Link Instagram">
 
 <select class="select">
 <option>1000 View = 1 Koin</option>
@@ -320,10 +465,13 @@ Status: Pending / Proses / Masuk
 <option>10000 View = 10 Koin</option>
 </select>
 
-<button class="btn">Booster Sekarang</button>
+<button class="btn">
+Booster Sekarang
+</button>
 
 <p class="small">
-Status: Pending / Proses / Masuk
+Status:
+Pending / Diproses / Masuk
 </p>
 
 </div>
@@ -332,7 +480,7 @@ Status: Pending / Proses / Masuk
 
 <h2>Facebook Service</h2>
 
-<input type="text" class="input" placeholder="Link Video Facebook">
+<input type="text" class="input" placeholder="Masukan Link Facebook">
 
 <select class="select">
 <option>1000 View = 1 Koin</option>
@@ -341,10 +489,13 @@ Status: Pending / Proses / Masuk
 <option>10000 View = 10 Koin</option>
 </select>
 
-<button class="btn">Booster Sekarang</button>
+<button class="btn">
+Booster Sekarang
+</button>
 
 <p class="small">
-Status: Pending / Proses / Masuk
+Status:
+Pending / Diproses / Masuk
 </p>
 
 </div>
@@ -353,59 +504,64 @@ Status: Pending / Proses / Masuk
 
 </div>
 
-<div id="ai" class="page" style="display:none;">
+<!-- AI TOOLS -->
+
+<div id="ai" class="page">
 
 <div class="section">
 
-<h2>API KEY AI</h2>
-
-<input type="text" class="input" placeholder="Masukan API KEY OpenAI / Gemini">
-
-<button class="btn">Save API KEY</button>
-
-<p class="small">
-Tutorial API KEY:
-<br><br>
-OpenAI:
-https://platform.openai.com/api-keys
-<br><br>
-Gemini:
-https://makersuite.google.com/app/apikey
-</p>
-
-</div>
-
-<div class="boxgrid">
-
-<div class="section">
 <h2>Caption CTA</h2>
+
 <input type="text" class="input" placeholder="Nama Produk">
+
 <input type="text" class="input" placeholder="Usia Target">
-<textarea class="input" placeholder="Deskripsi"></textarea>
-<button class="btn">Generate</button>
+
+<textarea class="input" placeholder="Deskripsi Produk"></textarea>
+
+<button class="btn">
+Generate Caption
+</button>
+
 </div>
 
 <div class="section">
+
 <h2>Ninja Peniru</h2>
+
 <input type="file" class="input">
-<button class="btn">Generate</button>
+
+<button class="btn">
+Analisa Video
+</button>
+
 </div>
 
 <div class="section">
+
 <h2>Produk To Avatar</h2>
+
 <input type="file" class="input">
-<textarea class="input" placeholder="Deskripsi"></textarea>
+
+<textarea class="input" placeholder="Deskripsi Konsep"></textarea>
+
 <select class="select">
 <option>1:1</option>
 <option>9:16</option>
 <option>16:9</option>
 </select>
-<button class="btn">Generate</button>
+
+<button class="btn">
+Generate Avatar
+</button>
+
 </div>
 
 <div class="section">
+
 <h2>Image To Video</h2>
+
 <input type="file" class="input">
+
 <textarea class="input" placeholder="Deskripsi"></textarea>
 
 <select class="select">
@@ -414,14 +570,31 @@ https://makersuite.google.com/app/apikey
 <option>1 Menit</option>
 </select>
 
-<button class="btn">Generate</button>
+<button class="btn">
+Generate Video
+</button>
+
 </div>
+
+<div class="section">
+
+<h2>Hook Analisis</h2>
+
+<input type="text" class="input" placeholder="Nama Produk">
+
+<textarea class="input" placeholder="Deskripsi"></textarea>
+
+<button class="btn">
+Generate Hook
+</button>
 
 </div>
 
 </div>
 
-<div id="kelas" class="page" style="display:none;">
+<!-- KELAS -->
+
+<div id="kelas" class="page">
 
 <div class="section">
 
@@ -464,24 +637,35 @@ https://makersuite.google.com/app/apikey
 
 </div>
 
-<div id="topup" class="page" style="display:none;">
+<!-- TOPUP -->
+
+<div id="topup" class="page">
 
 <div class="section">
 
 <h2>Top Up Koin</h2>
 
-<p style="margin-bottom:15px;">
-Minimal Top Up Rp50.000
-</p>
+<p class="small">
 
-<p style="margin-bottom:15px;">
+Minimal Top Up:
+Rp50.000
+
+<br><br>
+
 BRI Thomas Ade Prabowo
 <br>
 676201000757500
+
 </p>
 
+<br>
+
 <a href="https://wa.me/6282131974325" target="_blank">
-<button class="btn">Konfirmasi WhatsApp</button>
+
+<button class="btn">
+Konfirmasi WhatsApp
+</button>
+
 </a>
 
 </div>
@@ -492,19 +676,30 @@ BRI Thomas Ade Prabowo
 
 <script>
 
-function showSection(id){
+function toggleSidebar(){
 
-document.querySelectorAll('.page').forEach(page=>{
-page.style.display='none';
+document.getElementById("sidebar").classList.toggle("active")
+
+document.getElementById("overlay").classList.toggle("active")
+
+}
+
+function showPage(id){
+
+document.querySelectorAll(".page").forEach(page=>{
+page.style.display="none"
 })
 
-document.getElementById(id).style.display='block'
+document.getElementById(id).style.display="block"
+
+toggleSidebar()
 
 }
 
 function logout(){
 
 localStorage.removeItem("loginUser")
+
 window.location.href="index.html"
 
 }
