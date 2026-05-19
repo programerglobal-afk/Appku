@@ -781,7 +781,146 @@ Daftar & Masuk Dashboard
 </div>
 
 </section>
+  
+<!-- LOGIN USER -->
 
+<div class="login-box">
+
+<h1>Login Member</h1>
+
+<form id="loginForm">
+
+<label>Username</label>
+<input type="text" id="loginUsername" required>
+
+<label>Password</label>
+<input type="password" id="loginPassword" required>
+
+<button type="submit">
+Masuk Dashboard
+</button>
+
+</form>
+
+<p id="loginStatus"></p>
+
+</div>
+
+<style>
+
+.login-box{
+margin-top:40px;
+background:#0d1327;
+padding:40px;
+border-radius:30px;
+border:1px solid rgba(255,255,255,.05);
+}
+
+.login-box h1{
+font-size:35px;
+margin-bottom:30px;
+}
+
+.login-box label{
+display:block;
+margin-bottom:12px;
+margin-top:20px;
+font-size:16px;
+}
+
+.login-box input{
+width:100%;
+height:65px;
+border:none;
+outline:none;
+padding:20px;
+border-radius:18px;
+background:#131c37;
+color:white;
+font-size:17px;
+}
+
+.login-box button{
+width:100%;
+height:65px;
+margin-top:30px;
+border:none;
+border-radius:18px;
+background:linear-gradient(90deg,#6c63ff,#8b5cf6);
+color:white;
+font-size:18px;
+font-weight:700;
+cursor:pointer;
+}
+
+#loginStatus{
+margin-top:20px;
+color:#ff6767;
+font-size:15px;
+}
+
+</style>
+
+<script>
+
+/* ================= DAFTAR ================= */
+
+document.getElementById("registerForm").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let username = document.getElementById("username").value;
+let wa = document.getElementById("wa").value;
+let password = document.getElementById("password").value;
+let captcha = document.getElementById("captcha").value;
+
+if(captcha != "10"){
+
+alert("Captcha salah");
+return;
+
+}
+
+localStorage.setItem("user_username", username);
+localStorage.setItem("user_password", password);
+localStorage.setItem("user_wa", wa);
+
+alert("Pendaftaran berhasil, silahkan login");
+
+document.querySelector(".login-box").scrollIntoView({
+behavior:"smooth"
+});
+
+});
+
+/* ================= LOGIN ================= */
+
+document.getElementById("loginForm").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let user = document.getElementById("loginUsername").value;
+let pass = document.getElementById("loginPassword").value;
+
+let savedUser = localStorage.getItem("user_username");
+let savedPass = localStorage.getItem("user_password");
+
+if(user === savedUser && pass === savedPass){
+
+localStorage.setItem("login","true");
+
+window.location.href="dashboard.html";
+
+}else{
+
+document.getElementById("loginStatus").innerHTML =
+"Username atau password salah";
+
+}
+
+});
+
+</script>
 <!-- FOOTER -->
 
 <footer class="footer">
@@ -857,6 +996,821 @@ document.getElementById("testiName").innerText=testi[i].name;
 document.getElementById("testiText").innerText=testi[i].text;
 
 },3000);
+<script>
+
+/* REGISTER */
+
+document.querySelector("form").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let username = document.querySelectorAll("input")[0].value;
+let wa = document.querySelectorAll("input")[1].value;
+let password = document.querySelectorAll("input")[2].value;
+let captcha = document.querySelectorAll("input")[3].value;
+
+if(captcha != "10"){
+
+alert("Captcha salah");
+return;
+
+}
+
+localStorage.setItem("user_username", username);
+localStorage.setItem("user_password", password);
+localStorage.setItem("user_wa", wa);
+
+alert("Pendaftaran berhasil, silahkan login");
+
+window.scrollTo({
+top:document.body.scrollHeight,
+behavior:"smooth"
+});
+
+});
+
+/* LOGIN */
+
+document.getElementById("loginForm")
+.addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let username =
+document.getElementById("loginUsername").value;
+
+let password =
+document.getElementById("loginPassword").value;
+
+let savedUser =
+localStorage.getItem("user_username");
+
+let savedPass =
+localStorage.getItem("user_password");
+
+if(username === savedUser &&
+password === savedPass){
+
+localStorage.setItem("login","true");
+
+window.location.href="dashboard.html";
+
+}else{
+
+document.getElementById("loginStatus")
+.innerHTML = "Username atau password salah";
+
+}
+
+});
+
+</script<script>
+
+/* REGISTER */
+
+document.querySelector("form").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let username = document.querySelectorAll("input")[0].value;
+let wa = document.querySelectorAll("input")[1].value;
+let password = document.querySelectorAll("input")[2].value;
+let captcha = document.querySelectorAll("input")[3].value;
+
+if(captcha != "10"){
+
+alert("Captcha salah");
+return;
+
+}
+
+localStorage.setItem("user_username", username);
+localStorage.setItem("user_password", password);
+localStorage.setItem("user_wa", wa);
+
+alert("Pendaftaran berhasil, silahkan login");
+
+window.scrollTo({
+top:document.body.scrollHeight,
+behavior:"smooth"
+});
+
+});
+
+/* LOGIN */
+
+document.getElementById("loginForm")
+.addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let username =
+document.getElementById("loginUsername").value;
+
+let password =
+document.getElementById("loginPassword").value;
+
+let savedUser =
+localStorage.getItem("user_username");
+
+let savedPass =
+localStorage.getItem("user_password");
+
+if(username === savedUser &&
+password === savedPass){
+
+localStorage.setItem("login","true");
+
+window.location.href="dashboard.html";
+
+}else{
+
+document.getElementById("loginStatus")
+.innerHTML = "Username atau password salah";
+
+}
+
+});
+
+</script><script>
+
+/* REGISTER */
+
+document.querySelector("form").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let username = document.querySelectorAll("input")[0].value;
+let wa = document.querySelectorAll("input")[1].value;
+let password = document.querySelectorAll("input")[2].value;
+let captcha = document.querySelectorAll("input")[3].value;
+
+if(captcha != "10"){
+
+alert("Captcha salah");
+return;
+
+}
+
+localStorage.setItem("user_username", username);
+localStorage.setItem("user_password", password);
+localStorage.setItem("user_wa", wa);
+
+alert("Pendaftaran berhasil, silahkan login");
+
+window.scrollTo({
+top:document.body.scrollHeight,
+behavior:"smooth"
+});
+
+});
+
+/* LOGIN */
+
+document.getElementById("loginForm")
+.addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let username =
+document.getElementById("loginUsername").value;
+
+let password =
+document.getElementById("loginPassword").value;
+
+let savedUser =
+localStorage.getItem("user_username");
+
+let savedPass =
+localStorage.getItem("user_password");
+
+if(username === savedUser &&
+password === savedPass){
+
+localStorage.setItem("login","true");
+
+window.location.href="dashboard.html";
+
+}else{
+
+document.getElementById("loginStatus")
+.innerHTML = "Username atau password salah";
+
+}
+
+});
+
+</script><script>
+
+/* REGISTER */
+
+document.querySelector("form").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let username = document.querySelectorAll("input")[0].value;
+let wa = document.querySelectorAll("input")[1].value;
+let password = document.querySelectorAll("input")[2].value;
+let captcha = document.querySelectorAll("input")[3].value;
+
+if(captcha != "10"){
+
+alert("Captcha salah");
+return;
+
+}
+
+localStorage.setItem("user_username", username);
+localStorage.setItem("user_password", password);
+localStorage.setItem("user_wa", wa);
+
+alert("Pendaftaran berhasil, silahkan login");
+
+window.scrollTo({
+top:document.body.scrollHeight,
+behavior:"smooth"
+});
+
+});
+
+/* LOGIN */
+
+document.getElementById("loginForm")
+.addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let username =
+document.getElementById("loginUsername").value;
+
+let password =
+document.getElementById("loginPassword").value;
+
+let savedUser =
+localStorage.getItem("user_username");
+
+let savedPass =
+localStorage.getItem("user_password");
+
+if(username === savedUser &&
+password === savedPass){
+
+localStorage.setItem("login","true");
+
+window.location.href="dashboard.html";
+
+}else{
+
+document.getElementById("loginStatus")
+.innerHTML = "Username atau password salah";
+
+}
+
+});
+
+</script><script>
+
+/* REGISTER */
+
+document.querySelector("form").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let username = document.querySelectorAll("input")[0].value;
+let wa = document.querySelectorAll("input")[1].value;
+let password = document.querySelectorAll("input")[2].value;
+let captcha = document.querySelectorAll("input")[3].value;
+
+if(captcha != "10"){
+
+alert("Captcha salah");
+return;
+
+}
+
+localStorage.setItem("user_username", username);
+localStorage.setItem("user_password", password);
+localStorage.setItem("user_wa", wa);
+
+alert("Pendaftaran berhasil, silahkan login");
+
+window.scrollTo({
+top:document.body.scrollHeight,
+behavior:"smooth"
+});
+
+});
+
+/* LOGIN */
+
+document.getElementById("loginForm")
+.addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let username =
+document.getElementById("loginUsername").value;
+
+let password =
+document.getElementById("loginPassword").value;
+
+let savedUser =
+localStorage.getItem("user_username");
+
+let savedPass =
+localStorage.getItem("user_password");
+
+if(username === savedUser &&
+password === savedPass){
+
+localStorage.setItem("login","true");
+
+window.location.href="dashboard.html";
+
+}else{
+
+document.getElementById("loginStatus")
+.innerHTML = "Username atau password salah";
+
+}
+
+});
+
+</script><script>
+
+/* REGISTER */
+
+document.querySelector("form").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let username = document.querySelectorAll("input")[0].value;
+let wa = document.querySelectorAll("input")[1].value;
+let password = document.querySelectorAll("input")[2].value;
+let captcha = document.querySelectorAll("input")[3].value;
+
+if(captcha != "10"){
+
+alert("Captcha salah");
+return;
+
+}
+
+localStorage.setItem("user_username", username);
+localStorage.setItem("user_password", password);
+localStorage.setItem("user_wa", wa);
+
+alert("Pendaftaran berhasil, silahkan login");
+
+window.scrollTo({
+top:document.body.scrollHeight,
+behavior:"smooth"
+});
+
+});
+
+/* LOGIN */
+
+document.getElementById("loginForm")
+.addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let username =
+document.getElementById("loginUsername").value;
+
+let password =
+document.getElementById("loginPassword").value;
+
+let savedUser =
+localStorage.getItem("user_username");
+
+let savedPass =
+localStorage.getItem("user_password");
+
+if(username === savedUser &&
+password === savedPass){
+
+localStorage.setItem("login","true");
+
+window.location.href="dashboard.html";
+
+}else{
+
+document.getElementById("loginStatus")
+.innerHTML = "Username atau password salah";
+
+}
+
+});
+
+</script><script>
+
+/* REGISTER */
+
+document.querySelector("form").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let username = document.querySelectorAll("input")[0].value;
+let wa = document.querySelectorAll("input")[1].value;
+let password = document.querySelectorAll("input")[2].value;
+let captcha = document.querySelectorAll("input")[3].value;
+
+if(captcha != "10"){
+
+alert("Captcha salah");
+return;
+
+}
+
+localStorage.setItem("user_username", username);
+localStorage.setItem("user_password", password);
+localStorage.setItem("user_wa", wa);
+
+alert("Pendaftaran berhasil, silahkan login");
+
+window.scrollTo({
+top:document.body.scrollHeight,
+behavior:"smooth"
+});
+
+});
+
+/* LOGIN */
+
+document.getElementById("loginForm")
+.addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let username =
+document.getElementById("loginUsername").value;
+
+let password =
+document.getElementById("loginPassword").value;
+
+let savedUser =
+localStorage.getItem("user_username");
+
+let savedPass =
+localStorage.getItem("user_password");
+
+if(username === savedUser &&
+password === savedPass){
+
+localStorage.setItem("login","true");
+
+window.location.href="dashboard.html";
+
+}else{
+
+document.getElementById("loginStatus")
+.innerHTML = "Username atau password salah";
+
+}
+
+});
+
+</script><script>
+
+/* REGISTER */
+
+document.querySelector("form").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let username = document.querySelectorAll("input")[0].value;
+let wa = document.querySelectorAll("input")[1].value;
+let password = document.querySelectorAll("input")[2].value;
+let captcha = document.querySelectorAll("input")[3].value;
+
+if(captcha != "10"){
+
+alert("Captcha salah");
+return;
+
+}
+
+localStorage.setItem("user_username", username);
+localStorage.setItem("user_password", password);
+localStorage.setItem("user_wa", wa);
+
+alert("Pendaftaran berhasil, silahkan login");
+
+window.scrollTo({
+top:document.body.scrollHeight,
+behavior:"smooth"
+});
+
+});
+
+/* LOGIN */
+
+document.getElementById("loginForm")
+.addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let username =
+document.getElementById("loginUsername").value;
+
+let password =
+document.getElementById("loginPassword").value;
+
+let savedUser =
+localStorage.getItem("user_username");
+
+let savedPass =
+localStorage.getItem("user_password");
+
+if(username === savedUser &&
+password === savedPass){
+
+localStorage.setItem("login","true");
+
+window.location.href="dashboard.html";
+
+}else{
+
+document.getElementById("loginStatus")
+.innerHTML = "Username atau password salah";
+
+}
+
+});
+
+</script><script>
+
+/* REGISTER */
+
+document.querySelector("form").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let username = document.querySelectorAll("input")[0].value;
+let wa = document.querySelectorAll("input")[1].value;
+let password = document.querySelectorAll("input")[2].value;
+let captcha = document.querySelectorAll("input")[3].value;
+
+if(captcha != "10"){
+
+alert("Captcha salah");
+return;
+
+}
+
+localStorage.setItem("user_username", username);
+localStorage.setItem("user_password", password);
+localStorage.setItem("user_wa", wa);
+
+alert("Pendaftaran berhasil, silahkan login");
+
+window.scrollTo({
+top:document.body.scrollHeight,
+behavior:"smooth"
+});
+
+});
+
+/* LOGIN */
+
+document.getElementById("loginForm")
+.addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let username =
+document.getElementById("loginUsername").value;
+
+let password =
+document.getElementById("loginPassword").value;
+
+let savedUser =
+localStorage.getItem("user_username");
+
+let savedPass =
+localStorage.getItem("user_password");
+
+if(username === savedUser &&
+password === savedPass){
+
+localStorage.setItem("login","true");
+
+window.location.href="dashboard.html";
+
+}else{
+
+document.getElementById("loginStatus")
+.innerHTML = "Username atau password salah";
+
+}
+
+});
+
+</script><script>
+
+/* REGISTER */
+
+document.querySelector("form").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let username = document.querySelectorAll("input")[0].value;
+let wa = document.querySelectorAll("input")[1].value;
+let password = document.querySelectorAll("input")[2].value;
+let captcha = document.querySelectorAll("input")[3].value;
+
+if(captcha != "10"){
+
+alert("Captcha salah");
+return;
+
+}
+
+localStorage.setItem("user_username", username);
+localStorage.setItem("user_password", password);
+localStorage.setItem("user_wa", wa);
+
+alert("Pendaftaran berhasil, silahkan login");
+
+window.scrollTo({
+top:document.body.scrollHeight,
+behavior:"smooth"
+});
+
+});
+
+/* LOGIN */
+
+document.getElementById("loginForm")
+.addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let username =
+document.getElementById("loginUsername").value;
+
+let password =
+document.getElementById("loginPassword").value;
+
+let savedUser =
+localStorage.getItem("user_username");
+
+let savedPass =
+localStorage.getItem("user_password");
+
+if(username === savedUser &&
+password === savedPass){
+
+localStorage.setItem("login","true");
+
+window.location.href="dashboard.html";
+
+}else{
+
+document.getElementById("loginStatus")
+.innerHTML = "Username atau password salah";
+
+}
+
+});
+
+</script><script>
+
+/* REGISTER */
+
+document.querySelector("form").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let username = document.querySelectorAll("input")[0].value;
+let wa = document.querySelectorAll("input")[1].value;
+let password = document.querySelectorAll("input")[2].value;
+let captcha = document.querySelectorAll("input")[3].value;
+
+if(captcha != "10"){
+
+alert("Captcha salah");
+return;
+
+}
+
+localStorage.setItem("user_username", username);
+localStorage.setItem("user_password", password);
+localStorage.setItem("user_wa", wa);
+
+alert("Pendaftaran berhasil, silahkan login");
+
+window.scrollTo({
+top:document.body.scrollHeight,
+behavior:"smooth"
+});
+
+});
+
+/* LOGIN */
+
+document.getElementById("loginForm")
+.addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let username =
+document.getElementById("loginUsername").value;
+
+let password =
+document.getElementById("loginPassword").value;
+
+let savedUser =
+localStorage.getItem("user_username");
+
+let savedPass =
+localStorage.getItem("user_password");
+
+if(username === savedUser &&
+password === savedPass){
+
+localStorage.setItem("login","true");
+
+window.location.href="dashboard.html";
+
+}else{
+
+document.getElementById("loginStatus")
+.innerHTML = "Username atau password salah";
+
+}
+
+});
+
+</script><script>
+
+/* REGISTER */
+
+document.querySelector("form").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let username = document.querySelectorAll("input")[0].value;
+let wa = document.querySelectorAll("input")[1].value;
+let password = document.querySelectorAll("input")[2].value;
+let captcha = document.querySelectorAll("input")[3].value;
+
+if(captcha != "10"){
+
+alert("Captcha salah");
+return;
+
+}
+
+localStorage.setItem("user_username", username);
+localStorage.setItem("user_password", password);
+localStorage.setItem("user_wa", wa);
+
+alert("Pendaftaran berhasil, silahkan login");
+
+window.scrollTo({
+top:document.body.scrollHeight,
+behavior:"smooth"
+});
+
+});
+
+/* LOGIN */
+
+document.getElementById("loginForm")
+.addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let username =
+document.getElementById("loginUsername").value;
+
+let password =
+document.getElementById("loginPassword").value;
+
+let savedUser =
+localStorage.getItem("user_username");
+
+let savedPass =
+localStorage.getItem("user_password");
+
+if(username === savedUser &&
+password === savedPass){
+
+localStorage.setItem("login","true");
+
+window.location.href="dashboard.html";
+
+}else{
+
+document.getElementById("loginStatus")
+.innerHTML = "Username atau password salah";
+
+}
+
+});
 
 </script>
 
