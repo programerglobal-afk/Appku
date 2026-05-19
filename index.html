@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Flowbittools AI</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:sans-serif;
+}
+
+body{
+background:#020817;
+color:white;
+overflow-x:hidden;
+}
+
+a{
+text-decoration:none;
+color:white;
+}
+
+header{
+padding:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#050d22;
+position:sticky;
+top:0;
+z-index:99;
+}
+
+.logo{
+font-size:28px;
+font-weight:bold;
+background:linear-gradient(45deg,#7b2ff7,#ff0080);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.nav{
+display:flex;
+gap:15px;
+}
+
+.nav button{
+padding:12px 20px;
+border:none;
+border-radius:12px;
+background:#111a35;
+color:white;
+cursor:pointer;
+font-weight:bold;
+}
+
+.hero{
+padding:90px 20px;
+text-align:center;
+}
+
+.hero h1{
+font-size:55px;
+max-width:900px;
+margin:auto;
+line-height:1.2;
+}
+
+.hero p{
+margin-top:20px;
+font-size:18px;
+opacity:.8;
+max-width:700px;
+margin-left:auto;
+margin-right:auto;
+}
+
+.hero-btn{
+margin-top:35px;
+display:flex;
+justify-content:center;
+gap:15px;
+flex-wrap:wrap;
+}
+
+.hero-btn button{
+padding:16px 30px;
+border:none;
+border-radius:16px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.btn1{
+background:linear-gradient(45deg,#7b2ff7,#ff0080);
+color:white;
+}
+
+.btn2{
+background:#111a35;
+color:white;
+}
+
+.section{
+padding:70px 20px;
+max-width:1200px;
+margin:auto;
+}
+
+.title{
+font-size:40px;
+text-align:center;
+margin-bottom:20px;
+}
+
+.desc{
+text-align:center;
+opacity:.7;
+margin-bottom:50px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.card{
+background:#081028;
+padding:25px;
+border-radius:22px;
+transition:.3s;
+border:1px solid rgba(255,255,255,.05);
+}
+
+.card:hover{
+transform:translateY(-5px);
+box-shadow:0 0 30px rgba(128,0,255,.25);
+}
+
+.card h3{
+margin-top:15px;
+margin-bottom:10px;
+}
+
+.price{
+background:linear-gradient(45deg,#7b2ff7,#ff0080);
+padding:30px;
+border-radius:25px;
+text-align:center;
+}
+
+.price h2{
+font-size:40px;
+margin-top:10px;
+}
+
+.auth-box{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+width:95%;
+max-width:420px;
+background:#081028;
+padding:25px;
+border-radius:25px;
+display:none;
+z-index:999;
+box-shadow:0 0 40px rgba(0,0,0,.5);
+}
+
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.7);
+display:none;
+z-index:998;
+}
+
+.auth-box h2{
+margin-bottom:20px;
+text-align:center;
+}
+
+input{
+width:100%;
+padding:15px;
+margin-top:14px;
+border:none;
+border-radius:15px;
+background:#101a35;
+color:white;
+}
+
+.auth-box button{
+width:100%;
+padding:15px;
+margin-top:15px;
+border:none;
+border-radius:15px;
+background:linear-gradient(45deg,#7b2ff7,#ff0080);
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+footer{
+padding:30px;
+text-align:center;
+opacity:.6;
+}
+
+@media(max-width:700px){
+
+.hero h1{
+font-size:38px;
+}
+
+.title{
+font-size:30px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+Flowbittools
+</div>
+
+<div class="nav">
+<button onclick="openLogin()">
+Login
+</button>
+
+<button onclick="openRegister()">
+Daftar
+</button>
+</div>
+
+</header>
+
+<section class="hero">
+
+<h1>
+AI Tools Premium Untuk Konten Viral & Bisnis Digital
+</h1>
+
+<p>
+Buat caption viral, script affiliate, ide konten, promosi marketplace, dan berbagai kebutuhan digital lebih cepat menggunakan AI modern.
+</p>
+
+<div class="hero-btn">
+
+<button class="btn1" onclick="openRegister()">
+Mulai Sekarang
+</button>
+
+<button class="btn2" onclick="scrollFeature()">
+Lihat Fitur
+</button>
+
+</div>
+
+</section>
+
+<section class="section" id="fitur">
+
+<div class="title">
+Fitur Premium
+</div>
+
+<div class="desc">
+Semua tools dibuat untuk creator, affiliate, reseller, dan bisnis online modern.
+</div>
+
+<div class="grid">
+
+<div class="card">
+<h3>AI Caption Viral</h3>
+<p>
+Buat caption otomatis untuk Tiktok, Instagram, Facebook dan Shopee.
+</p>
+</div>
+
+<div class="card">
+<h3>AI Script Affiliate</h3>
+<p>
+Generate script video affiliate otomatis lebih cepat dan menarik.
+</p>
+</div>
+
+<div class="card">
+<h3>AI Prompt Generator</h3>
+<p>
+Buat prompt AI berkualitas tinggi untuk kebutuhan konten.
+</p>
+</div>
+
+<div class="card">
+<h3>AI Marketplace Booster</h3>
+<p>
+Optimasi produk marketplace dengan AI modern.
+</p>
+</div>
+
+<div class="card">
+<h3>AI Ide Konten</h3>
+<p>
+Cari ide konten viral otomatis setiap hari.
+</p>
+</div>
+
+<div class="card">
+<h3>AI Hashtag Viral</h3>
+<p>
+Generate hashtag trending otomatis sesuai niche.
+</p>
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="title">
+Kenapa Harus Flowbittools?
+</div>
+
+<div class="grid">
+
+<div class="card">
+<h3>⚡ Cepat</h3>
+<p>
+Generate konten hanya hitungan detik.
+</p>
+</div>
+
+<div class="card">
+<h3>🔥 Modern</h3>
+<p>
+Desain premium dan nyaman digunakan di HP.
+</p>
+</div>
+
+<div class="card">
+<h3>🔒 Aman</h3>
+<p>
+Data member tersimpan di database Supabase.
+</p>
+</div>
+
+<div class="card">
+<h3>📈 Support Bisnis</h3>
+<p>
+Cocok untuk affiliate, UMKM dan creator.
+</p>
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="price">
+
+<p>Member Premium</p>
+
+<h2>Rp 30.000</h2>
+
+<p style="margin-top:10px;">
+Akses semua tools premium
+</p>
+
+<button onclick="openRegister()" style="margin-top:20px;">
+Gabung Sekarang
+</button>
+
+</div>
+
+</section>
+
+<footer>
+© 2026 Flowbittools AI Premium
+</footer>
+
+<!-- OVERLAY -->
+
+<div class="overlay" id="overlay"></div>
+
+<!-- REGISTER -->
+
+<div class="auth-box" id="registerBox">
+
+<h2>Daftar Member</h2>
+
+<input type="text" id="regUsername" placeholder="Username">
+
+<input type="number" id="regWa" placeholder="Nomor WhatsApp">
+
+<input type="password" id="regPassword" placeholder="Password">
+
+<button onclick="registerUser()">
+Daftar Sekarang
+</button>
+
+</div>
+
+<!-- LOGIN -->
+
+<div class="auth-box" id="loginBox">
+
+<h2>Login Member</h2>
+
+<input type="text" id="loginUsername" placeholder="Username">
+
+<input type="password" id="loginPassword" placeholder="Password">
+
+<button onclick="loginUser()">
+Masuk Dashboard
+</button>
+
+</div>
+
+<script>
+
+const supabaseUrl =
+"https://nluwpbdgsctuxuasnkti.supabase.co";
+
+const supabaseKey =
+"sb_publishable_jYSLtUH4UKxt_QQRhGPlgQ_N3HQ5gFu";
+
+const client =
+supabase.createClient(supabaseUrl,supabaseKey);
+
+function scrollFeature(){
+
+document.getElementById("fitur")
+.scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+function openRegister(){
+
+document.getElementById("overlay").style.display="block";
+
+document.getElementById("registerBox").style.display="block";
+
+document.getElementById("loginBox").style.display="none";
+
+}
+
+function openLogin(){
+
+document.getElementById("overlay").style.display="block";
+
+document.getElementById("loginBox").style.display="block";
+
+document.getElementById("registerBox").style.display="none";
+
+}
+
+document.getElementById("overlay").onclick=function(){
+
+document.getElementById("overlay").style.display="none";
+
+document.getElementById("registerBox").style.display="none";
+
+document.getElementById("loginBox").style.display="none";
+
+}
+
+async function registerUser(){
+
+let username =
+document.getElementById("regUsername").value;
+
+let wa =
+document.getElementById("regWa").value;
+
+let password =
+document.getElementById("regPassword").value;
+
+if(!username || !wa || !password){
+
+alert("Lengkapi data");
+
+return;
+
+}
+
+const { data:cek } =
+await client
+.from("users")
+.select("*")
+.eq("username",username);
+
+if(cek.length > 0){
+
+alert("Username sudah digunakan");
+
+return;
+
+}
+
+await client
+.from("users")
+.insert([{
+
+username:username,
+wa:wa,
+password:password,
+coin:0,
+active:"aktif"
+
+}]);
+
+alert("Pendaftaran berhasil, silahkan login");
+
+openLogin();
+
+}
+
+async function loginUser(){
+
+let username =
+document.getElementById("loginUsername").value;
+
+let password =
+document.getElementById("loginPassword").value;
+
+const { data:user } =
+await client
+.from("users")
+.select("*")
+.eq("username",username)
+.eq("password",password)
+.single();
+
+if(!user){
+
+alert("Username atau password salah");
+
+return;
+
+}
+
+if(user.active !== "aktif"){
+
+alert("Akun nonaktif");
+
+return;
+
+}
+
+localStorage.setItem("loginUser",JSON.stringify(user));
+
+window.location.href="dashboard.html";
+
+}
+
+</script>
+
+</body>
+</html>
