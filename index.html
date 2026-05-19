@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flowbittools</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+background:#050816;
+color:white;
+overflow-x:hidden;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar{
+width:100%;
+padding:22px 7%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:fixed;
+top:0;
+z-index:999;
+background:rgba(5,8,22,.92);
+backdrop-filter:blur(18px);
+border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.logo{
+font-size:38px;
+font-weight:800;
+}
+
+.logo span{
+color:#7a5cff;
+}
+
+.nav-menu{
+display:flex;
+gap:18px;
+align-items:center;
+}
+
+.nav-menu a{
+text-decoration:none;
+color:white;
+font-size:15px;
+}
+
+.nav-btn{
+padding:14px 24px;
+background:linear-gradient(90deg,#6c63ff,#8b5cf6);
+border-radius:16px;
+font-weight:600;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+padding:170px 7% 120px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:70px;
+align-items:center;
+min-height:100vh;
+}
+
+.hero-left h1{
+font-size:82px;
+line-height:1.05;
+margin-bottom:30px;
+font-weight:800;
+}
+
+.hero-left h1 span{
+color:#7a5cff;
+}
+
+.hero-left p{
+font-size:19px;
+line-height:2;
+color:#a8b1d6;
+margin-bottom:40px;
+}
+
+.hero-buttons{
+display:flex;
+gap:18px;
+flex-wrap:wrap;
+}
+
+.hero-buttons a{
+padding:18px 34px;
+border-radius:18px;
+text-decoration:none;
+font-weight:600;
+font-size:16px;
+}
+
+.btn-primary{
+background:linear-gradient(90deg,#6c63ff,#8b5cf6);
+color:white;
+box-shadow:0 15px 35px rgba(108,99,255,.4);
+}
+
+.btn-secondary{
+border:1px solid rgba(255,255,255,.1);
+background:#0d1327;
+color:white;
+}
+
+.hero-card{
+background:#0c1226;
+padding:40px;
+border-radius:35px;
+border:1px solid rgba(255,255,255,.05);
+position:relative;
+overflow:hidden;
+}
+
+.hero-card::before{
+content:'';
+position:absolute;
+width:350px;
+height:350px;
+background:#6c63ff;
+filter:blur(120px);
+top:-100px;
+right:-100px;
+opacity:.25;
+}
+
+.hero-list{
+display:flex;
+flex-direction:column;
+gap:22px;
+position:relative;
+z-index:2;
+}
+
+.hero-item{
+background:#121933;
+padding:22px;
+border-radius:22px;
+}
+
+.hero-item h3{
+font-size:19px;
+margin-bottom:8px;
+}
+
+.hero-item p{
+color:#9ba7d1;
+font-size:14px;
+line-height:1.8;
+}
+
+/* ================= SECTION ================= */
+
+.section{
+padding:120px 7%;
+}
+
+.section-title{
+font-size:58px;
+font-weight:800;
+margin-bottom:20px;
+text-align:center;
+}
+
+.section-desc{
+max-width:900px;
+margin:auto;
+text-align:center;
+line-height:2;
+color:#9ba7d1;
+margin-bottom:70px;
+}
+
+/* ================= FITUR ================= */
+
+.features-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:28px;
+}
+
+.feature-card{
+background:#0d1327;
+padding:35px;
+border-radius:28px;
+border:1px solid rgba(255,255,255,.05);
+transition:.3s;
+}
+
+.feature-card:hover{
+transform:translateY(-10px);
+border-color:#6c63ff;
+}
+
+.feature-card h3{
+font-size:28px;
+margin-bottom:18px;
+}
+
+.feature-card ul{
+display:flex;
+flex-direction:column;
+gap:14px;
+list-style:none;
+}
+
+.feature-card ul li{
+padding:14px;
+background:#131c37;
+border-radius:14px;
+font-size:15px;
+}
+
+/* ================= KEUNGGULAN ================= */
+
+.advantages{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:24px;
+}
+
+.adv-card{
+background:#0d1327;
+padding:35px;
+border-radius:24px;
+text-align:center;
+}
+
+.adv-card h2{
+font-size:45px;
+margin-bottom:10px;
+color:#7a5cff;
+}
+
+.adv-card p{
+color:#a7afd0;
+line-height:1.8;
+}
+
+/* ================= TESTI ================= */
+
+.testi-wrapper{
+max-width:850px;
+margin:auto;
+}
+
+.testi-card{
+background:#0d1327;
+padding:45px;
+border-radius:30px;
+text-align:center;
+border:1px solid rgba(255,255,255,.05);
+}
+
+.testi-name{
+font-size:28px;
+font-weight:700;
+margin-bottom:18px;
+color:#7a5cff;
+}
+
+.testi-text{
+font-size:18px;
+line-height:2;
+color:#c6d0f1;
+}
+
+/* ================= LOGIN ================= */
+
+.auth-section{
+padding:120px 7%;
+}
+
+.auth-box{
+max-width:700px;
+margin:auto;
+background:#0d1327;
+padding:50px;
+border-radius:35px;
+border:1px solid rgba(255,255,255,.05);
+}
+
+.auth-box h1{
+font-size:48px;
+margin-bottom:18px;
+text-align:center;
+}
+
+.auth-box p{
+text-align:center;
+color:#9ba7d1;
+margin-bottom:35px;
+line-height:1.9;
+}
+
+.google-btn{
+width:100%;
+padding:18px;
+border:none;
+border-radius:18px;
+background:white;
+font-size:16px;
+font-weight:700;
+margin-bottom:28px;
+cursor:pointer;
+}
+
+.divider{
+text-align:center;
+margin-bottom:28px;
+color:#8d97be;
+}
+
+.input-group{
+margin-bottom:24px;
+}
+
+.input-group label{
+display:block;
+margin-bottom:10px;
+font-size:14px;
+}
+
+.input-group input{
+width:100%;
+padding:18px;
+border:none;
+outline:none;
+background:#131c37;
+border-radius:16px;
+color:white;
+font-size:15px;
+}
+
+.submit-btn{
+width:100%;
+padding:18px;
+border:none;
+border-radius:18px;
+background:linear-gradient(90deg,#6c63ff,#8b5cf6);
+font-size:17px;
+font-weight:700;
+color:white;
+cursor:pointer;
+box-shadow:0 15px 40px rgba(108,99,255,.35);
+}
+
+/* ================= FOOTER ================= */
+
+.footer{
+padding:60px 7%;
+text-align:center;
+border-top:1px solid rgba(255,255,255,.05);
+background:#070b1b;
+}
+
+.footer h2{
+font-size:38px;
+margin-bottom:18px;
+}
+
+.footer p{
+color:#9ba7d1;
+line-height:1.9;
+margin-bottom:30px;
+}
+
+.footer a{
+display:inline-block;
+padding:16px 28px;
+border-radius:18px;
+background:#25d366;
+color:white;
+text-decoration:none;
+font-weight:600;
+}
+
+/* ================= MOBILE ================= */
+
+.mobile-toggle{
+display:none;
+font-size:32px;
+cursor:pointer;
+}
+
+.mobile-sidebar{
+position:fixed;
+top:0;
+right:-100%;
+width:85%;
+height:100vh;
+background:#0a1023;
+padding:35px;
+z-index:99999;
+transition:.4s;
+overflow-y:auto;
+}
+
+.mobile-sidebar.active{
+right:0;
+}
+
+.mobile-sidebar h2{
+font-size:35px;
+margin-bottom:30px;
+}
+
+.mobile-sidebar h2 span{
+color:#7a5cff;
+}
+
+.mobile-sidebar a{
+display:block;
+padding:18px;
+margin-bottom:14px;
+background:#111933;
+border-radius:16px;
+text-decoration:none;
+color:white;
+}
+
+@media(max-width:950px){
+
+.nav-menu{
+display:none;
+}
+
+.mobile-toggle{
+display:block;
+}
+
+.hero{
+grid-template-columns:1fr;
+padding-top:150px;
+}
+
+.hero-left h1{
+font-size:56px;
+}
+
+.section-title{
+font-size:42px;
+}
+
+.auth-box{
+padding:35px;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<!-- MOBILE SIDEBAR -->
+
+<div class="mobile-sidebar" id="sidebar">
+
+<h2>Flowbit<span>tools</span></h2>
+
+<a href="#fitur">🚀 Fitur</a>
+<a href="#keunggulan">⭐ Keunggulan</a>
+<a href="#testimoni">💬 Testimoni</a>
+<a href="#auth">🔐 Daftar Member</a>
+<a href="https://wa.me/6282131974325">📞 Kontak Admin</a>
+
+</div>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+<div class="logo">
+Flowbit<span>tools</span>
+</div>
+
+<div class="nav-menu">
+<a href="#fitur">Fitur</a>
+<a href="#keunggulan">Keunggulan</a>
+<a href="#testimoni">Testimoni</a>
+<a href="#auth">Daftar</a>
+<a href="https://wa.me/6282131974325" class="nav-btn">Kontak</a>
+</div>
+
+<div class="mobile-toggle" onclick="toggleSidebar()">
+☰
+</div>
+
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="hero-left">
+
+<h1>
+Platform Creator Digital & <span>AI Automation</span>
+</h1>
+
+<p>
+Flowbittools membantu affiliator, creator, dan pebisnis digital meningkatkan traffic video, membuat konten AI modern, serta mengelola automation tools dalam satu platform profesional modern.
+</p>
+
+<div class="hero-buttons">
+
+<a href="#auth" class="btn-primary">
+Mulai Sekarang
+</a>
+
+<a href="#fitur" class="btn-secondary">
+Lihat Fitur
+</a>
+
+</div>
+
+</div>
+
+<div class="hero-card">
+
+<div class="hero-list">
+
+<div class="hero-item">
+<h3>🚀 Traffic Booster</h3>
+<p>
+Meningkatkan performa video Shopee, TikTok, Instagram, dan Facebook secara modern.
+</p>
+</div>
+
+<div class="hero-item">
+<h3>🤖 AI Creator Tools</h3>
+<p>
+Membantu membuat konten AI, hook viral, hingga video automation dengan cepat.
+</p>
+</div>
+
+<div class="hero-item">
+<h3>🎓 Creator Learning</h3>
+<p>
+Kelas private dan premium untuk creator yang ingin scale bisnis digital lebih besar.
+</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FITUR -->
+
+<section class="section" id="fitur">
+
+<h1 class="section-title">
+Fitur Profesional Flowbittools
+</h1>
+
+<p class="section-desc">
+Semua tools dibuat untuk membantu creator modern berkembang lebih cepat dengan sistem automation yang mudah digunakan.
+</p>
+
+<div class="features-grid">
+
+<div class="feature-card">
+
+<h3>🚀 Traffic Service</h3>
+
+<ul>
+<li>Shopee Service</li>
+<li>TikTok Service</li>
+<li>Instagram Service</li>
+<li>Facebook Service</li>
+</ul>
+
+</div>
+
+<div class="feature-card">
+
+<h3>🤖 AI Tools Affiliator</h3>
+
+<ul>
+<li>Ninja Peniru</li>
+<li>Image To Video</li>
+<li>Hook Analisis</li>
+<li>Produk To Avatar</li>
+</ul>
+
+</div>
+
+<div class="feature-card">
+
+<h3>🎓 Chatbot Kelas</h3>
+
+<ul>
+<li>Kelas Premium</li>
+<li>Kelas Private</li>
+<li>Kelas VIP</li>
+<li>Kelas Exclusif</li>
+</ul>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- KEUNGGULAN -->
+
+<section class="section" id="keunggulan">
+
+<h1 class="section-title">
+Kenapa Memilih Flowbittools
+</h1>
+
+<p class="section-desc">
+Dibangun dengan sistem modern, cepat, dan mudah digunakan untuk creator digital masa kini.
+</p>
+
+<div class="advantages">
+
+<div class="adv-card">
+<h2>24/7</h2>
+<p>Platform online aktif setiap hari tanpa batas waktu.</p>
+</div>
+
+<div class="adv-card">
+<h2>AI</h2>
+<p>Didukung AI creator modern untuk automation konten.</p>
+</div>
+
+<div class="adv-card">
+<h2>Cloud</h2>
+<p>Data aman menggunakan sistem cloud database modern.</p>
+</div>
+
+<div class="adv-card">
+<h2>Fast</h2>
+<p>Tampilan ringan, smooth, dan cepat di semua perangkat.</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- TESTIMONI -->
+
+<section class="section" id="testimoni">
+
+<h1 class="section-title">
+Testimoni Member
+</h1>
+
+<p class="section-desc">
+Ribuan creator mulai menggunakan Flowbittools untuk membantu meningkatkan performa digital mereka.
+</p>
+
+<div class="testi-wrapper">
+
+<div class="testi-card">
+
+<div class="testi-name" id="testiName">
+Rizky Creator
+</div>
+
+<div class="testi-text" id="testiText">
+Traffic video saya naik jauh lebih cepat setelah pakai Flowbittools.
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- AUTH -->
+
+<section class="auth-section" id="auth">
+
+<div class="auth-box">
+
+<h1>
+Daftar Sebagai Member
+</h1>
+
+<p>
+Gabung sekarang dan akses semua fitur creator automation modern dalam satu dashboard profesional.
+</p>
+
+<button class="google-btn">
+Login Via Google
+</button>
+
+<div class="divider">
+ATAU
+</div>
+
+<form onsubmit="redirectDashboard(event)">
+
+<div class="input-group">
+<label>Username</label>
+<input type="text" required>
+</div>
+
+<div class="input-group">
+<label>No. WhatsApp</label>
+<input type="number" required>
+</div>
+
+<div class="input-group">
+<label>Password</label>
+<input type="password" required>
+</div>
+
+<div class="input-group">
+<label>Captcha : 7 + 5 = ?</label>
+<input type="number" required>
+</div>
+
+<button class="submit-btn">
+Daftar & Masuk Dashboard
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+<h2>
+Flowbittools
+</h2>
+
+<p>
+Platform creator digital modern untuk traffic booster, AI creator tools, dan automation system profesional.
+</p>
+
+<a href="https://wa.me/6282131974325">
+Hubungi WhatsApp
+</a>
+
+</footer>
+
+<script>
+
+function toggleSidebar(){
+document.getElementById("sidebar").classList.toggle("active");
+}
+
+function redirectDashboard(e){
+e.preventDefault();
+window.location.href="dashboard.html";
+}
+
+const testiData = [
+
+{
+name:"Rizky Creator",
+text:"Traffic video saya naik jauh lebih cepat setelah pakai Flowbittools."
+},
+
+{
+name:"Fajar Affiliator",
+text:"AI tools nya membantu bikin hook dan konten lebih cepat."
+},
+
+{
+name:"Dina Content Creator",
+text:"Desain dashboard nya keren dan ringan di HP saya."
+},
+
+{
+name:"Aldi Digital",
+text:"Sangat membantu creator pemula untuk scale traffic lebih besar."
+}
+
+];
+
+let testiIndex=0;
+
+setInterval(()=>{
+
+testiIndex++;
+
+if(testiIndex>=testiData.length){
+testiIndex=0;
+}
+
+document.getElementById("testiName").innerText=testiData[testiIndex].name;
+
+document.getElementById("testiText").innerText=testiData[testiIndex].text;
+
+},3000);
+
+</script>
+
+</body>
+</html>
