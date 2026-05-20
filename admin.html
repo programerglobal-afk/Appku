@@ -347,7 +347,7 @@ margin-top:10px;
 </div>
 
 </div>
-<div id="keykelas" class="card"
+<div id="keykelas" class="card" style="display:none;">
 
 <h2>🔑 Buat Key Kelas</h2>
 
@@ -397,6 +397,7 @@ document.getElementById("dashboard").style.display="block";
 document.getElementById("loginPage").style.display="flex";
 document.getElementById("dashboard").style.display="none";
 }
+}
 
 async function loginAdmin(){
 
@@ -431,6 +432,8 @@ document.getElementById("status").innerHTML="Login gagal";
 }
 
 function logout(){
+
+localStorage.removeItem("loginAdmin");
 
 location.reload();
 
