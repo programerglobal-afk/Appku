@@ -1215,6 +1215,11 @@ Admin 2 Iksan
 </style>
 
 <script>
+  const cekLogin = localStorage.getItem("loginUser");
+
+if(!cekLogin){
+window.location.href = "index.html";
+}
 
 function toggleWA(){
 
