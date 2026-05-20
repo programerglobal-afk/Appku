@@ -304,6 +304,27 @@ border:none;
 border-radius:15px;
 background:#000;
   }
+.menu-group{
+margin-top:10px;
+}
+
+.submenu{
+display:none;
+padding-left:12px;
+margin-top:10px;
+}
+
+.sub-btn{
+width:100%;
+background:#101c44;
+border:none;
+padding:12px;
+margin-bottom:10px;
+border-radius:12px;
+color:#fff;
+text-align:left;
+font-size:14px;
+}
 /* PAGE */
 
 .page{
@@ -359,9 +380,33 @@ Flowbittools
 🤖 AI Tools
 </button>
 
-<button onclick="showPage('kelas')">
+<div class="menu-group">
+
+<button class="nav-btn" onclick="toggleKelas()">
 🎓 Chatbot Kelas
 </button>
+
+<div id="submenuKelas" class="submenu">
+
+<button class="sub-btn" onclick="showPage('premium')">
+⭐ Kelas Premium
+</button>
+
+<button class="sub-btn">
+🔒 Kelas Private
+</button>
+
+<button class="sub-btn">
+🔒 Kelas VIP
+</button>
+
+<button class="sub-btn">
+🔒 Kelas Exclusive
+</button>
+
+</div>
+
+</div>
 
 <button onclick="showPage('topup')">
 💰 Top Up Koin
@@ -753,7 +798,17 @@ document.getElementById("sidebar").classList.toggle("active")
 document.getElementById("overlay").classList.toggle("active")
 
 }
+function toggleKelas(){
 
+const submenu = document.getElementById("submenuKelas")
+
+if(submenu.style.display === "block"){
+submenu.style.display = "none"
+}else{
+submenu.style.display = "block"
+}
+
+}
 function showPage(id){
 
 document.querySelectorAll(".page").forEach(page=>{
@@ -762,7 +817,10 @@ page.style.display="none"
 
 document.getElementById(id).style.display="block"
 
-toggleSidebar()
+if(window.innerWidth < 768){
+document.getElementById("sidebar").classList.remove("active")
+document.getElementById("overlay").classList.remove("active")
+}
 
 }
 
