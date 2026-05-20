@@ -216,7 +216,7 @@ margin-top:10px;
 
 <button onclick="showPage('assistant')">🛡 Asisten Admin</button>
 
-<button onclick="showAdminPage('keykelas')">
+<button onclick="showAdminPage('keykelas'); tampilKey()">
 🔑 Key Kelas
 </button>
 
@@ -355,18 +355,27 @@ margin-top:10px;
 </div>
 <div id="keykelas" class="card" style="display:none;">
 
-<h2>🔑 Key Kelas</h2>
+<h2>🔑 Buat Key Kelas</h2>
+
+<input type="text" id="namaUser" placeholder="Nama User">
+
+<br><br>
 
 <select id="kelas">
+
 <option value="premium">Kelas Premium</option>
+
 <option value="private">Kelas Private</option>
+
 <option value="vip">Kelas VIP</option>
+
 <option value="exclusive">Kelas Exclusive</option>
+
 </select>
 
 <br><br>
 
-<input type="text" id="keyInput" placeholder="Masukan key">
+<input type="text" id="keyInput" placeholder="Masukan Key">
 
 <br><br>
 
@@ -661,25 +670,37 @@ document.getElementById(id).style.display="block"
 
 function buatKey(){
 
+let user = document.getElementById("namaUser").value
+
 let kelas = document.getElementById("kelas").value
 
 let key = document.getElementById("keyInput").value
 
-if(!key){
-alert("Masukan key")
+if(!user || !key){
+
+alert("Lengkapi data")
+
 return
+
 }
 
 let allKeys = JSON.parse(localStorage.getItem("allKeys")) || []
 
 allKeys.push({
-kelas: kelas,
-key: key
+
+user:user,
+
+kelas:kelas,
+
+key:key
+
 })
 
 localStorage.setItem("allKeys", JSON.stringify(allKeys))
 
-document.getElementById("keyInput").value = ""
+document.getElementById("namaUser").value=""
+
+document.getElementById("keyInput").value=""
 
 tampilKey()
 
@@ -693,12 +714,30 @@ let allKeys = JSON.parse(localStorage.getItem("allKeys")) || []
 
 let html = ""
 
-allKeys.forEach((k)=>{
+allKeys.forEach((k,index)=>{
 
 html += `
-<div style="background:#111;padding:10px;border-radius:10px;margin-top:10px">
-${k.kelas.toUpperCase()} : ${k.key}
+
+<div style="background:#111;padding:15px;border-radius:10px;margin-top:10px">
+
+<b>User:</b> ${k.user}<br>
+
+<b>Kelas:</b> ${k.kelas.toUpperCase()}<br>
+
+<b>Key:</b> ${k.key}
+
+<br><br>
+
+<button onclick="copyKey('${k.key}')">
+Salin Key
+</button>
+
+<button onclick="hapusKey(${index})" style="background:red;color:white">
+Hapus
+</button>
+
 </div>
+
 `
 
 })
@@ -706,7 +745,25 @@ ${k.kelas.toUpperCase()} : ${k.key}
 document.getElementById("listKey").innerHTML = html
 
 }
+function copyKey(key){
 
+navigator.clipboard.writeText(key)
+
+alert("Key disalin")
+
+}
+
+function hapusKey(index){
+
+let allKeys = JSON.parse(localStorage.getItem("allKeys")) || []
+
+allKeys.splice(index,1)
+
+localStorage.setItem("allKeys", JSON.stringify(allKeys))
+
+tampilKey()
+
+}
 tampilKey()
 </script>
 
