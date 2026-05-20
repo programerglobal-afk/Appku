@@ -428,44 +428,278 @@ Flowbittools
 
 <!-- DASHBOARD -->
 
-<div id="dashboard" class="page">
+<!-- DASHBOARD USER -->
 
-<div class="card">
-<h3>Status Akun</h3>
-<h1>Pending</h1>
-<div class="status pending">Menunggu Verifikasi</div>
+<div style="padding:20px;">
+
+<!-- PROFIL -->
+<div style="
+background:#111827;
+padding:20px;
+border-radius:20px;
+display:flex;
+align-items:center;
+gap:15px;
+margin-bottom:20px;
+box-shadow:0 0 20px rgba(168,85,247,0.2);
+">
+
+<img src="https://i.imgur.com/ZdJSK3Y.png"
+style="
+width:70px;
+height:70px;
+border-radius:50%;
+border:3px solid #a855f7;
+animation:putar 6s linear infinite;
+">
+
+<div>
+<p style="color:#aaa;margin:0;">Nama User</p>
+
+<h2 id="usernameText" style="
+color:white;
+margin:0;
+">
+User Premium
+</h2>
+
+<span style="
+background:#22c55e;
+padding:5px 12px;
+border-radius:30px;
+font-size:12px;
+color:white;
+display:inline-block;
+margin-top:8px;
+">
+AKTIF
+</span>
+
 </div>
 
-<div class="card">
-<h3>Total Koin</h3>
-<h1>0</h1>
 </div>
 
-<div class="card">
-<h3>Email User</h3>
-<h1 style="font-size:24px;">user@gmail.com</h1>
+<!-- GRAFIK -->
+<div style="
+background:#111827;
+padding:20px;
+border-radius:20px;
+margin-bottom:20px;
+">
+
+<h2 style="color:white;">
+📈 Statistik Akun
+</h2>
+
+<div style="
+display:flex;
+align-items:flex-end;
+gap:15px;
+height:180px;
+margin-top:20px;
+">
+
+<div style="flex:1;text-align:center;">
+<div style="
+height:80%;
+background:linear-gradient(180deg,#9333ea,#ec4899);
+border-radius:10px 10px 0 0;
+animation:naik1 2s infinite alternate;
+"></div>
+<p style="color:white;">AI</p>
 </div>
 
-<div class="section">
+<div style="flex:1;text-align:center;">
+<div style="
+height:55%;
+background:linear-gradient(180deg,#3b82f6,#06b6d4);
+border-radius:10px 10px 0 0;
+animation:naik2 2s infinite alternate;
+"></div>
+<p style="color:white;">Traffic</p>
+</div>
 
-<h2>Verifikasi Sekarang</h2>
+<div style="flex:1;text-align:center;">
+<div style="
+height:95%;
+background:linear-gradient(180deg,#f59e0b,#facc15);
+border-radius:10px 10px 0 0;
+animation:naik3 2s infinite alternate;
+"></div>
+<p style="color:white;">Tools</p>
+</div>
 
-<p class="small">
-Semua fitur dikunci sebelum akun diaktifkan admin.
+</div>
+
+</div>
+
+<!-- TOTAL KOIN -->
+<div style="
+background:#111827;
+padding:20px;
+border-radius:20px;
+margin-bottom:20px;
+">
+
+<p style="color:#aaa;">
+Total Koin
 </p>
 
-<br>
+<h1 style="
+color:white;
+font-size:45px;
+margin:0;
+">
+0
+</h1>
+
+</div>
+
+</div>
+
+<!-- FLOATING WA -->
+<div style="
+position:fixed;
+bottom:20px;
+right:20px;
+z-index:999;
+animation:goyang 2s infinite;
+">
 
 <a href="https://wa.me/6282131974325" target="_blank">
 
-<button class="btn">
-Hubungi Admin WhatsApp
-</button>
+<div style="
+background:linear-gradient(90deg,#22c55e,#16a34a);
+padding:15px;
+border-radius:20px;
+box-shadow:0 0 20px rgba(34,197,94,0.4);
+width:220px;
+">
+
+<div style="
+display:flex;
+align-items:center;
+gap:10px;
+">
+
+<img src="https://i.imgur.com/ZdJSK3Y.png"
+style="
+width:45px;
+height:45px;
+border-radius:50%;
+">
+
+<div>
+
+<p style="
+margin:0;
+color:white;
+font-weight:bold;
+font-size:14px;
+">
+Admin 1 Mbah Paijo
+</p>
+
+<p style="
+margin:0;
+color:#dcfce7;
+font-size:12px;
+">
+082131974325
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</a>
+
+<br>
+
+<a href="https://wa.me/6285810509177" target="_blank">
+
+<div style="
+background:linear-gradient(90deg,#3b82f6,#06b6d4);
+padding:15px;
+border-radius:20px;
+box-shadow:0 0 20px rgba(59,130,246,0.4);
+width:220px;
+">
+
+<div style="
+display:flex;
+align-items:center;
+gap:10px;
+">
+
+<img src="https://i.imgur.com/q7s7YpD.png"
+style="
+width:45px;
+height:45px;
+border-radius:50%;
+">
+
+<div>
+
+<p style="
+margin:0;
+color:white;
+font-weight:bold;
+font-size:14px;
+">
+Admin 2 Iksan
+</p>
+
+<p style="
+margin:0;
+color:#dbeafe;
+font-size:12px;
+">
+085810509177
+</p>
+
+</div>
+
+</div>
+
+</div>
 
 </a>
 
 </div>
 
+<style>
+
+@keyframes goyang{
+0%{transform:translateY(0px);}
+50%{transform:translateY(-8px);}
+100%{transform:translateY(0px);}
+}
+
+@keyframes putar{
+100%{
+transform:rotate(360deg);
+}
+}
+
+@keyframes naik1{
+0%{height:60%;}
+100%{height:80%;}
+}
+
+@keyframes naik2{
+0%{height:40%;}
+100%{height:55%;}
+}
+
+@keyframes naik3{
+0%{height:70%;}
+100%{height:95%;}
+}
+
+</style>
 </div>
 
 <!-- TRAFIK -->
@@ -899,6 +1133,98 @@ window.location.href="index.html"
 
 }
 
+</script>
+  <!-- FLOATING WA -->
+<div style="
+position:fixed;
+bottom:20px;
+right:20px;
+z-index:999;
+animation:goyang 2s infinite;
+">
+
+<div onclick="toggleWA()" style="
+width:60px;
+height:60px;
+border-radius:50%;
+background:linear-gradient(135deg,#25D366,#128C7E);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+cursor:pointer;
+box-shadow:0 0 20px rgba(37,211,102,0.6);
+">
+💬
+</div>
+
+<div id="waBox" style="
+display:none;
+margin-top:10px;
+background:#111827;
+padding:15px;
+border-radius:15px;
+width:220px;
+box-shadow:0 0 20px rgba(0,0,0,0.4);
+">
+
+<p style="color:white;font-weight:bold;">
+Admin Flowbittools
+</p>
+
+<a href="https://wa.me/6282131974325" target="_blank" style="text-decoration:none;">
+<button style="
+width:100%;
+margin-top:10px;
+padding:12px;
+border:none;
+border-radius:10px;
+background:#25D366;
+color:white;
+font-weight:bold;
+cursor:pointer;
+">
+Admin 1 Mbah Paijo
+</button>
+</a>
+
+<a href="https://wa.me/6285810509177" target="_blank" style="text-decoration:none;">
+<button style="
+width:100%;
+margin-top:10px;
+padding:12px;
+border:none;
+border-radius:10px;
+background:#9333ea;
+color:white;
+font-weight:bold;
+cursor:pointer;
+">
+Admin 2 Iksan
+</button>
+</a>
+
+</div>
+</div>
+
+<style>
+@keyframes goyang{
+0%{transform:translateY(0px);}
+50%{transform:translateY(-8px);}
+100%{transform:translateY(0px);}
+}
+</style>
+
+<script>
+function toggleWA(){
+let box = document.getElementById("waBox");
+
+if(box.style.display === "block"){
+box.style.display = "none";
+}else{
+box.style.display = "block";
+}
+}
 </script>
 
 </body>
