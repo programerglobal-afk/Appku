@@ -278,11 +278,16 @@ color:#aaa;
 margin-top:12px;
 line-height:1.6;
 }
+.kelas-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:20px;
+}
+
 .kelas-box{
 background:#111a44;
 padding:20px;
 border-radius:20px;
-margin-bottom:25px;
 border:1px solid rgba(255,255,255,0.08);
 }
 
@@ -617,6 +622,7 @@ Generate Hook
 <div id="kelas" class="page">
 
 <div class="section">
+<div class="kelas-grid">
 
 <h2>Chatbot Kelas Premium</h2>
 
@@ -699,6 +705,7 @@ allow="autoplay">
 
 </div>
 
+</div>
 </div>
 <!-- TOPUP -->
 
