@@ -215,10 +215,7 @@ margin-top:10px;
 <button onclick="showPage('apikey')">🔑 API Key</button>
 
 <button onclick="showPage('assistant')">🛡 Asisten Admin</button>
-
-<button onclick="showPage('keykelas'); tampilKey();">
-🔑 Key Kelas
-</button>
+<button onclick="showAdminPage('keykelas'); tampilKey()">🔑 Key Kelas</button>
 
 <button onclick="logout()">🚪 Logout</button>
 
@@ -227,8 +224,8 @@ margin-top:10px;
 </div>
 
 <div class="content">
-
-<div class="stat-box">
+  
+<div class="stat-box" id="homePage">
 
 <div class="stat">
 <p>Total Member</p>
@@ -663,6 +660,8 @@ function showAdminPage(id){
 document.querySelectorAll(".card").forEach(card=>{
 card.style.display="none"
 })
+
+document.getElementById("homePage").style.display="none"
 
 document.getElementById(id).style.display="block"
 
