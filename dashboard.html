@@ -388,19 +388,19 @@ Flowbittools
 
 <div id="submenuKelas" class="submenu">
 
-<button class="sub-btn" onclick="showPage('premium')">
+<button class="sub-btn" onclick="cekKey('premium')">
 ⭐ Kelas Premium
 </button>
 
-<button class="sub-btn">
+<button class="sub-btn" onclick="cekKey('private')">
 🔒 Kelas Private
 </button>
 
-<button class="sub-btn">
+<button class="sub-btn" onclick="cekKey('vip')">
 🔒 Kelas VIP
 </button>
 
-<button class="sub-btn">
+<button class="sub-btn" onclick="cekKey('exclusive')">
 🔒 Kelas Exclusive
 </button>
 
@@ -788,7 +788,54 @@ Konfirmasi WhatsApp
 </div>
 
 </div>
+</div>
 
+<!-- PAGE PRIVATE -->
+<div id="private" class="page">
+
+<div class="section">
+
+<h2>🔒 Kelas Private</h2>
+
+<p class="small">
+Akses kelas private berhasil
+</p>
+
+</div>
+
+</div>
+
+<!-- PAGE VIP -->
+<div id="vip" class="page">
+
+<div class="section">
+
+<h2>🔒 Kelas VIP</h2>
+
+<p class="small">
+Akses kelas VIP berhasil
+</p>
+
+</div>
+
+</div>
+
+<!-- PAGE EXCLUSIVE -->
+<div id="exclusive" class="page">
+
+<div class="section">
+
+<h2>🔒 Kelas Exclusive</h2>
+
+<p class="small">
+Akses kelas Exclusive berhasil
+</p>
+
+</div>
+
+</div>
+
+<script>
 <script>
 
 function toggleSidebar(){
@@ -809,6 +856,27 @@ submenu.style.display = "block"
 }
 
 }
+  function cekKey(kelas){
+
+let userKey = prompt("Masukan Key Akses")
+
+let allKeys = JSON.parse(localStorage.getItem("allKeys")) || []
+
+let cocok = allKeys.find(
+k => k.kelas === kelas && k.key === userKey
+)
+
+if(cocok){
+
+showPage(kelas)
+
+}else{
+
+alert("Key Salah Atau Tidak Aktif")
+
+}
+
+  }
 function showPage(id){
 
 document.querySelectorAll(".page").forEach(page=>{
