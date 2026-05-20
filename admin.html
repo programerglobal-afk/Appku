@@ -216,6 +216,10 @@ margin-top:10px;
 
 <button onclick="showPage('assistant')">🛡 Asisten Admin</button>
 
+<button onclick="showAdminPage('keykelas')">
+🔑 Key Kelas
+</button>
+
 <button onclick="logout()">🚪 Logout</button>
 
 </div>
@@ -349,7 +353,30 @@ margin-top:10px;
 </div>
 
 </div>
+<div id="keykelas" class="card" style="display:none;">
 
+<h2>🔑 Key Kelas</h2>
+
+<select id="kelas">
+<option value="premium">Kelas Premium</option>
+<option value="private">Kelas Private</option>
+<option value="vip">Kelas VIP</option>
+<option value="exclusive">Kelas Exclusive</option>
+</select>
+
+<br><br>
+
+<input type="text" id="keyInput" placeholder="Masukan key">
+
+<br><br>
+
+<button onclick="buatKey()">
+Buat Key
+</button>
+
+<div id="listKey"></div>
+
+</div>
 <script>
 
 const supabaseUrl = "https://nluwpbdgsctuxuasnkti.supabase.co";
@@ -622,7 +649,65 @@ role:"assistant"
 alert("Asisten admin dibuat");
 
 }
+function showAdminPage(id){
 
+document.querySelectorAll(".card").forEach(card=>{
+card.style.display="none"
+})
+
+document.getElementById(id).style.display="block"
+
+}
+
+function buatKey(){
+
+let kelas = document.getElementById("kelas").value
+
+let key = document.getElementById("keyInput").value
+
+if(!key){
+alert("Masukan key")
+return
+}
+
+let allKeys = JSON.parse(localStorage.getItem("allKeys")) || []
+
+allKeys.push({
+kelas: kelas,
+key: key
+})
+
+localStorage.setItem("allKeys", JSON.stringify(allKeys))
+
+document.getElementById("keyInput").value = ""
+
+tampilKey()
+
+alert("Key berhasil dibuat")
+
+}
+
+function tampilKey(){
+
+let allKeys = JSON.parse(localStorage.getItem("allKeys")) || []
+
+let html = ""
+
+allKeys.forEach((k)=>{
+
+html += `
+<div style="background:#111;padding:10px;border-radius:10px;margin-top:10px">
+${k.kelas.toUpperCase()} : ${k.key}
+</div>
+`
+
+})
+
+document.getElementById("listKey").innerHTML = html
+
+}
+
+tampilKey()
 </script>
 
 </body>
