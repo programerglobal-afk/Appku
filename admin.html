@@ -390,10 +390,12 @@ const client = supabase.createClient(supabaseUrl,supabaseKey);
 
 window.onload=()=>{
 
+if(localStorage.getItem("loginAdmin")=="true"){
+document.getElementById("loginPage").style.display="none";
+document.getElementById("dashboard").style.display="block";
+}else{
 document.getElementById("loginPage").style.display="flex";
-
 document.getElementById("dashboard").style.display="none";
-
 }
 
 async function loginAdmin(){
@@ -410,6 +412,7 @@ const { data } = await client
 .single();
 
 if(data){
+localStorage.setItem("loginAdmin","true");
 
 document.getElementById("loginPage").style.display="none";
 
