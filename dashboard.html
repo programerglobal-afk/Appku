@@ -460,7 +460,6 @@ animation:putar 6s linear infinite;
 color:white;
 margin:0;
 ">
-User Premium
 </h2>
 
 <span style="
@@ -1215,8 +1214,8 @@ Admin 2 Iksan
 }
 </style>
 
-<script>
 function toggleWA(){
+
 let box = document.getElementById("waBox");
 
 if(box.style.display === "block"){
@@ -1224,6 +1223,13 @@ box.style.display = "none";
 }else{
 box.style.display = "block";
 }
+
+}
+
+const username = localStorage.getItem("username");
+
+if(username){
+document.getElementById("usernameText").innerText = username;
 }
 </script>
 
