@@ -392,7 +392,10 @@ window.onload=()=>{
 
 if(localStorage.getItem("loginAdmin")=="true"){
 document.getElementById("loginPage").style.display="none";
-document.getElementById("dashboard").style.display="block";
+document.getElementById("dashboard").style.display="block"; 
+loadUsers();
+loadCoin();
+loadHistory();
 }else{
 document.getElementById("loginPage").style.display="flex";
 document.getElementById("dashboard").style.display="none";
