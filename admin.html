@@ -444,17 +444,15 @@ location.reload();
 
 function showPage(id){
 
-document.getElementById("member").style.display="none";
+let pages = ["member","coin","history","apikey","assistant","keykelas"];
 
-document.getElementById("coin").style.display="none";
+pages.forEach(page=>{
+let el = document.getElementById(page);
 
-document.getElementById("history").style.display="none";
-
-document.getElementById("apikey").style.display="none";
-
-document.getElementById("assistant").style.display="none";
-
-document.getElementById("keykelas").style.display="none";
+if(el){
+el.style.display="none";
+}
+});
 
 document.getElementById(id).style.display="block";
 
