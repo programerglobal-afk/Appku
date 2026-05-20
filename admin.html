@@ -369,7 +369,7 @@ margin-top:10px;
 
 <br><br>
 
-<input type="text" id="keyInput" placeholder="Masukan Key">
+<input type="text" id="keyInput" readonly>
 
 <br><br>
 
@@ -675,11 +675,17 @@ document.getElementById(id).style.display="block"
 
 function buatKey(){
 
+let random = Math.floor(Math.random()*9999);
+
+let keyAuto = "mbahpaijo-" + random;
+
+document.getElementById("keyInput").value = keyAuto;
+
 let user = document.getElementById("namaUser").value
 
 let kelas = document.getElementById("kelas").value
 
-let key = document.getElementById("keyInput").value
+let key = keyAuto
 
 if(!user || !key){
 
