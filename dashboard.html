@@ -899,7 +899,19 @@ if(cocok){
 showPage(kelas);
 
 if(kelas === "premium"){
-loadMateri();
+loadMateri("premium","listMateri");
+}
+
+if(kelas === "private"){
+loadMateri("private","listPrivate");
+}
+
+if(kelas === "vip"){
+loadMateri("vip","listVip");
+}
+
+if(kelas === "exclusive"){
+loadMateri("exclusive","listExclusive");
 }
 
 }else{
