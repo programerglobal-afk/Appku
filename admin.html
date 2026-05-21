@@ -842,8 +842,11 @@ document.getElementById("materiKelas").value;
 const judul =
 document.getElementById("judulMateri").value;
 
-const link =
+let link =
 document.getElementById("videoMateri").value;
+
+link = link.replace("/view?usp=drivesdk", "/preview")
+link = link.replace("/view?usp=sharing", "/preview")
 
 if(!judul || !link){
 alert("Lengkapi data");
