@@ -1215,6 +1215,14 @@ Admin 2 Iksan
 </style>
 
 <script>
+  const supabaseUrl = "https://nluwbpdgsctuxuasnkti.supabase.co"
+
+const supabaseKey = "sb_publishable_jYSLtUH4UKxt_QQRhGPlgQ_N3HQ5gFu"
+
+const client = supabase.createClient(
+supabaseUrl,
+supabaseKey
+)
   const cekLogin = localStorage.getItem("loginUser");
 
 if(!cekLogin){
@@ -1238,7 +1246,49 @@ const username = localStorage.getItem("username");
 if(username){
 document.getElementById("usernameText").innerText = username;
 }
+async function loadMateri(){
 
+const { data, error } = await client
+.from("materi")
+.select("*")
+
+if(error){
+console.log(error)
+return
+}
+
+let html = ""
+
+data.forEach((m)=>{
+
+html += `
+<div style="
+background:#111827;
+padding:15px;
+border-radius:15px;
+margin-top:15px;
+color:white;
+">
+
+<h3>${m.judul}</h3>
+
+<iframe
+src="${m.link}"
+width="100%"
+height="220"
+style="border-radius:10px;border:none;"
+allowfullscreen>
+</iframe>
+
+</div>
+`
+
+})
+
+document.getElementById("listMateri").innerHTML = html
+
+  }
+  loadMateri()
 </script>
 </body>
 </html>
