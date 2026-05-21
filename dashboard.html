@@ -890,14 +890,21 @@ page.style.display = "none";
 document.getElementById(id)
 .style.display = "block";
 
-document.getElementById("sidebar")
-.classList.remove("active");
+const sidebar =
+document.getElementById("sidebar");
 
-document.getElementById("overlay")
-.classList.remove("active");
-
+if(sidebar){
+sidebar.classList.remove("active");
 }
 
+const overlay =
+document.getElementById("overlay");
+
+if(overlay){
+overlay.classList.remove("active");
+}
+
+}
 /* SUBMENU */
 
 function toggleKelas(){
