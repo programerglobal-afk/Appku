@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Flowbittools AI</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#020817;
+color:white;
+overflow-x:hidden;
+}
+
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px;
+background:#081028;
+position:sticky;
+top:0;
+z-index:100;
+}
+
+.logo{
+font-size:34px;
+font-weight:bold;
+background:linear-gradient(45deg,#7b2ff7,#ff0080);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.nav{
+display:flex;
+gap:10px;
+}
+
+.nav button{
+padding:12px 20px;
+border:none;
+border-radius:14px;
+background:#101a35;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+.hero{
+padding:90px 20px;
+text-align:center;
+}
+
+.hero h1{
+font-size:55px;
+max-width:900px;
+margin:auto;
+line-height:1.2;
+}
+
+.hero p{
+margin-top:20px;
+font-size:18px;
+opacity:.8;
+max-width:700px;
+margin-left:auto;
+margin-right:auto;
+}
+
+.hero-btn{
+margin-top:35px;
+display:flex;
+justify-content:center;
+gap:15px;
+flex-wrap:wrap;
+}
+
+.hero-btn button{
+padding:16px 30px;
+border:none;
+border-radius:16px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.btn1{
+background:linear-gradient(45deg,#7b2ff7,#ff0080);
+color:white;
+}
+
+.btn2{
+background:#101a35;
+color:white;
+}
+
+.section{
+padding:70px 20px;
+max-width:1200px;
+margin:auto;
+}
+
+.title{
+font-size:42px;
+text-align:center;
+margin-bottom:15px;
+}
+
+.desc{
+text-align:center;
+opacity:.7;
+margin-bottom:45px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.card{
+background:#081028;
+padding:25px;
+border-radius:24px;
+border:1px solid rgba(255,255,255,.05);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+box-shadow:0 0 25px rgba(128,0,255,.2);
+}
+
+.card h3{
+margin-bottom:10px;
+}
+
+.testi{
+background:#081028;
+padding:40px;
+border-radius:24px;
+text-align:center;
+min-height:220px;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+}
+
+.testi h2{
+margin-bottom:15px;
+}
+
+footer{
+padding:30px;
+text-align:center;
+opacity:.6;
+}
+
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.7);
+display:none;
+z-index:999;
+}
+
+.popup{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+width:95%;
+max-width:430px;
+background:#081028;
+padding:25px;
+border-radius:25px;
+display:none;
+z-index:1000;
+}
+
+.popup h2{
+text-align:center;
+margin-bottom:20px;
+}
+
+input{
+width:100%;
+padding:15px;
+margin-top:14px;
+border:none;
+border-radius:15px;
+background:#101a35;
+color:white;
+font-size:15px;
+}
+
+.popup button{
+width:100%;
+padding:15px;
+margin-top:15px;
+border:none;
+border-radius:15px;
+background:linear-gradient(45deg,#7b2ff7,#ff0080);
+color:white;
+font-weight:bold;
+font-size:15px;
+cursor:pointer;
+}
+
+.close-btn{
+background:#101a35 !important;
+margin-top:10px !important;
+}
+
+@media(max-width:700px){
+
+.hero h1{
+font-size:38px;
+}
+
+.title{
+font-size:32px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+Flowbittools
+</div>
+
+<div class="nav">
+
+<button onclick="openLogin()">
+Login
+</button>
+
+<button onclick="openRegister()">
+Daftar
+</button>
+
+</div>
+
+</header>
+
+<section class="hero">
+
+<h1>
+AI Tools Premium Untuk Konten Viral & Bisnis Digital
+</h1>
+
+<p>
+Buat caption viral, script affiliate, ide konten, hashtag dan promosi marketplace otomatis menggunakan AI modern.
+</p>
+
+<div class="hero-btn">
+
+<button class="btn1" onclick="openRegister()">
+Mulai Sekarang
+</button>
+
+<button class="btn2" onclick="scrollFitur()">
+Lihat Fitur
+</button>
+
+</div>
+
+</section>
+
+<section class="section" id="fitur">
+
+<div class="title">
+Fitur Premium
+</div>
+
+<div class="desc">
+Semua tools dibuat untuk creator, affiliate dan bisnis online modern.
+</div>
+
+<div class="grid">
+
+<div class="card">
+<h3>🔥 AI Caption Viral</h3>
+<p>
+Generate caption otomatis untuk Tiktok, Instagram dan Facebook.
+</p>
+</div>
+
+<div class="card">
+<h3>⚡ AI Script Affiliate</h3>
+<p>
+Buat script video affiliate otomatis lebih cepat.
+</p>
+</div>
+
+<div class="card">
+<h3>🚀 AI Ide Konten</h3>
+<p>
+Cari ide konten viral otomatis setiap hari.
+</p>
+</div>
+
+<div class="card">
+<h3>📈 AI Marketplace</h3>
+<p>
+Optimasi promosi marketplace lebih modern.
+</p>
+</div>
+
+<div class="card">
+<h3>🎯 AI Hashtag</h3>
+<p>
+Generate hashtag trending sesuai niche.
+</p>
+</div>
+
+<div class="card">
+<h3>🤖 AI Prompt</h3>
+<p>
+Buat prompt AI premium otomatis.
+</p>
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="title">
+Kenapa Flowbittools?
+</div>
+
+<div class="grid">
+
+<div class="card">
+<h3>⚡ Cepat</h3>
+<p>
+Semua tools berjalan cepat dan ringan.
+</p>
+</div>
+
+<div class="card">
+<h3>📱 Mobile Friendly</h3>
+<p>
+Nyaman digunakan langsung dari HP.
+</p>
+</div>
+
+<div class="card">
+<h3>🔒 Aman</h3>
+<p>
+Data member tersimpan aman di Supabase.
+</p>
+</div>
+
+<div class="card">
+<h3>🔥 Modern</h3>
+<p>
+Desain premium modern dan elegan.
+</p>
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="title">
+Testimoni Member
+</div>
+
+<div class="desc">
+Dipercaya creator dan affiliate digital.
+</div>
+
+<div class="testi">
+
+<h2 id="testiNama">
+Rizky - Affiliate Shopee
+</h2>
+
+<p id="testiText" style="opacity:.8;font-size:18px;">
+"Konten saya jadi lebih cepat viral setelah pakai Flowbittools."
+</p>
+
+</div>
+
+</section>
+
+<footer>
+© 2026 Flowbittools Premium
+</footer>
+
+<!-- OVERLAY -->
+
+<div class="overlay" id="overlay"></div>
+
+<!-- REGISTER -->
+
+<div class="popup" id="registerPopup">
+
+<h2>Daftar Member</h2>
+
+<input type="text" id="regUsername" placeholder="Username">
+
+<input type="text" id="regWa" placeholder="Nomor WhatsApp">
+
+<input type="password" id="regPassword" placeholder="Password">
+
+<button onclick="registerUser()">
+Daftar Sekarang
+</button>
+
+<button class="close-btn" onclick="closePopup()">
+Tutup
+</button>
+
+</div>
+
+<!-- LOGIN -->
+
+<div class="popup" id="loginPopup">
+
+<h2>Login Member</h2>
+
+<input type="text" id="loginUsername" placeholder="Username">
+
+<input type="password" id="loginPassword" placeholder="Password">
+
+<button onclick="loginUser()">
+Masuk Dashboard
+</button>
+
+<button class="close-btn" onclick="closePopup()">
+Tutup
+</button>
+
+</div>
+
+<script>
+
+const supabaseUrl =
+"https://nluwpbdgsctuxuasnkti.supabase.co";
+
+const supabaseKey =
+"sb_publishable_jYSLtUH4UKxt_QQRhGPlgQ_N3HQ5gFu";
+
+const supabaseClient =
+supabase.createClient(
+supabaseUrl,
+supabaseKey
+);
+
+function scrollFitur(){
+
+document.getElementById("fitur")
+.scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+function openRegister(){
+
+document.getElementById("overlay").style.display="block";
+
+document.getElementById("registerPopup").style.display="block";
+
+document.getElementById("loginPopup").style.display="none";
+
+}
+
+function openLogin(){
+
+document.getElementById("overlay").style.display="block";
+
+document.getElementById("loginPopup").style.display="block";
+
+document.getElementById("registerPopup").style.display="none";
+
+}
+
+function closePopup(){
+
+document.getElementById("overlay").style.display="none";
+
+document.getElementById("loginPopup").style.display="none";
+
+document.getElementById("registerPopup").style.display="none";
+
+}
+
+async function registerUser(){
+
+const username =
+document.getElementById("regUsername")
+.value.trim();
+
+const wa =
+document.getElementById("regWa")
+.value.trim();
+
+const password =
+document.getElementById("regPassword")
+.value.trim();
+
+if(
+!username ||
+!wa ||
+!password
+){
+
+alert("Lengkapi data");
+
+return;
+
+}
+
+const { data:cekUser } =
+await supabaseClient
+.from("users")
+.select("*")
+.eq("username",username);
+
+if(
+cekUser &&
+cekUser.length > 0
+){
+
+alert("Username sudah digunakan");
+
+return;
+
+}
+
+const { error } =
+await supabaseClient
+.from("users")
+.insert([{
+
+username:username,
+wa:wa,
+password:password,
+coin:0,
+active:"aktif"
+
+}]);
+
+if(error){
+
+console.log(error);
+
+alert(
+"Gagal daftar, cek tabel users Supabase"
+);
+
+return;
+
+}
+
+alert(
+"Pendaftaran berhasil, silahkan login"
+);
+
+document.getElementById("regUsername").value="";
+document.getElementById("regWa").value="";
+document.getElementById("regPassword").value="";
+
+closePopup();
+
+openLogin();
+
+}
+
+async function loginUser(){
+
+const username =
+document.getElementById("loginUsername")
+.value.trim();
+
+const password =
+document.getElementById("loginPassword")
+.value.trim();
+
+if(
+!username ||
+!password
+){
+
+alert("Isi username dan password");
+
+return;
+
+}
+
+const { data:user , error } =
+await supabaseClient
+.from("users")
+.select("*")
+.eq("username",username)
+.eq("password",password)
+.single();
+
+if(error || !user){
+
+console.log(error);
+
+alert("Username atau password salah");
+
+return;
+
+}
+
+if(user.active !== "aktif"){
+
+alert("Akun tidak aktif");
+
+return;
+
+}
+
+localStorage.setItem(
+"loginUser",
+JSON.stringify(user)
+);
+localStorage.setItem("username", user.username);
+window.location.href =
+"dashboard.html";
+
+}
+
+const testimoni = [
+
+{
+nama:"Rizky - Affiliate Shopee",
+text:"Konten saya jadi lebih cepat viral setelah pakai Flowbittools."
+},
+
+{
+nama:"Siti - Reseller Fashion",
+text:"AI caption nya membantu jualan saya naik drastis."
+},
+
+{
+nama:"Adit - Creator TikTok",
+text:"Script video otomatisnya keren dan hemat waktu."
+},
+
+{
+nama:"Mey - UMKM",
+text:"Sekarang bikin promosi jadi jauh lebih gampang."
+},
+
+{
+nama:"Bagas - Digital Marketing",
+text:"Tools paling worth it untuk bisnis online."
+}
+
+];
+
+let testiIndex = 0;
+
+setInterval(()=>{
+
+testiIndex++;
+
+if(
+testiIndex >=
+testimoni.length
+){
+
+testiIndex = 0;
+
+}
+
+document.getElementById("testiNama")
+.innerHTML =
+testimoni[testiIndex].nama;
+
+document.getElementById("testiText")
+.innerHTML =
+'"'+
+testimoni[testiIndex].text+
+'"';
+
+},3000);
+
+</script>
+  <!-- SECTION HARGA -->
+<section style="padding:70px 20px;text-align:center;">
+
+<h2 style="
+font-size:45px;
+font-weight:bold;
+color:white;
+margin-bottom:10px;
+">
+💎 Harga Membership
+</h2>
+
+<p style="
+color:#aaa;
+margin-bottom:45px;
+">
+Pilih paket terbaik untuk kebutuhan creator & bisnis digital modern.
+</p>
+
+<div style="
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:25px;
+">
+
+<!-- PREMIUM -->
+<div style="
+background:#111827;
+padding:30px;
+border-radius:25px;
+border:1px solid #9333ea;
+box-shadow:0 0 20px rgba(147,51,234,0.3);
+transition:0.3s;
+">
+
+<div style="
+display:inline-block;
+padding:6px 14px;
+border-radius:30px;
+background:#9333ea;
+color:white;
+font-size:13px;
+margin-bottom:15px;
+">
+🔥 POPULER
+</div>
+
+<h2 style="color:white;font-size:30px;">
+Premium
+</h2>
+
+<h1 style="
+font-size:50px;
+color:#a855f7;
+margin:15px 0;
+">
+100K
+</h1>
+
+<p style="color:#ddd;">✅ Akses kelas premium</p>
+<p style="color:#ddd;">🪙 Gratis 2 koin pertama</p>
+<p style="color:#ddd;">🤖 Akses fitur AI</p>
+<p style="color:#ddd;">🚀 Akses fitur trafik service</p>
+
+<a href="https://wa.me/6282131974325" target="_blank">
+
+<button style="
+margin-top:25px;
+width:100%;
+padding:14px;
+border:none;
+border-radius:14px;
+background:linear-gradient(90deg,#9333ea,#ec4899);
+color:white;
+font-weight:bold;
+font-size:15px;
+cursor:pointer;
+">
+Hubungi Admin
+</button>
+
+</a>
+
+</div>
+
+<!-- PRIVATE -->
+<div style="
+background:#111827;
+padding:30px;
+border-radius:25px;
+border:1px solid #06b6d4;
+box-shadow:0 0 20px rgba(6,182,212,0.3);
+">
+
+<h2 style="color:white;font-size:30px;">
+Private
+</h2>
+
+<h1 style="
+font-size:50px;
+color:#06b6d4;
+margin:15px 0;
+">
+500K
+</h1>
+
+<p style="color:#ddd;">✅ Akses kelas private</p>
+<p style="color:#ddd;">🪙 Gratis 5 koin pertama</p>
+<p style="color:#ddd;">🤖 Akses fitur AI</p>
+<p style="color:#ddd;">🚀 Akses fitur trafik service</p>
+
+<a href="https://wa.me/6282131974325" target="_blank">
+
+<button style="
+margin-top:25px;
+width:100%;
+padding:14px;
+border:none;
+border-radius:14px;
+background:linear-gradient(90deg,#0891b2,#06b6d4);
+color:white;
+font-weight:bold;
+font-size:15px;
+cursor:pointer;
+">
+Hubungi Admin
+</button>
+
+</a>
+
+</div>
+
+<!-- VIP -->
+<div style="
+background:#111827;
+padding:30px;
+border-radius:25px;
+border:1px solid #f59e0b;
+box-shadow:0 0 20px rgba(245,158,11,0.3);
+">
+
+<h2 style="color:white;font-size:30px;">
+VIP
+</h2>
+
+<h1 style="
+font-size:50px;
+color:#facc15;
+margin:15px 0;
+">
+950K
+</h1>
+
+<p style="color:#ddd;">✅ Akses kelas VIP</p>
+<p style="color:#ddd;">🪙 Gratis 7 koin pertama</p>
+<p style="color:#ddd;">🤖 Akses fitur AI</p>
+<p style="color:#ddd;">🚀 Akses fitur trafik service</p>
+
+<a href="https://wa.me/6282131974325" target="_blank">
+
+<button style="
+margin-top:25px;
+width:100%;
+padding:14px;
+border:none;
+border-radius:14px;
+background:linear-gradient(90deg,#f59e0b,#facc15);
+color:white;
+font-weight:bold;
+font-size:15px;
+cursor:pointer;
+">
+Hubungi Admin
+</button>
+
+</a>
+
+</div>
+
+<!-- EXCLUSIVE -->
+<div style="
+background:#111827;
+padding:30px;
+border-radius:25px;
+border:2px solid #ec4899;
+box-shadow:0 0 30px rgba(236,72,153,0.4);
+position:relative;
+overflow:hidden;
+">
+
+<div style="
+position:absolute;
+top:15px;
+right:-35px;
+background:#ec4899;
+padding:6px 40px;
+transform:rotate(45deg);
+color:white;
+font-size:12px;
+font-weight:bold;
+">
+BEST
+</div>
+
+<h2 style="color:white;font-size:30px;">
+Exclusive
+</h2>
+
+<h1 style="
+font-size:50px;
+color:#ec4899;
+margin:15px 0;
+">
+1,5 JT
+</h1>
+
+<p style="color:#ddd;">✅ Akses kelas exclusive</p>
+<p style="color:#ddd;">🪙 Gratis 10 koin pertama</p>
+<p style="color:#ddd;">🤖 Akses fitur AI</p>
+<p style="color:#ddd;">🚀 Akses fitur trafik service</p>
+
+<a href="https://wa.me/6282131974325" target="_blank">
+
+<button style="
+margin-top:25px;
+width:100%;
+padding:14px;
+border:none;
+border-radius:14px;
+background:linear-gradient(90deg,#db2777,#ec4899);
+color:white;
+font-weight:bold;
+font-size:15px;
+cursor:pointer;
+">
+Hubungi Admin
+</button>
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+</body>
+</html>
