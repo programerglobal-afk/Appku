@@ -1179,14 +1179,16 @@ async function loadMateri(){
 
 const { data, error } = await client
 .from("materi")
-.select("*");
-console.log(data)
+.select("*")
+.eq("kelas","premium");
+
 if(error){
-console.log(error)
-return
+console.log(error);
+return;
 }
 
-let html = ""
+let html = "";
+
 data.forEach((m)=>{
 
 html += `
@@ -1205,24 +1207,22 @@ src="${m.link.replace('/view?usp=drivesdk','/preview').replace('/view','/preview
 width="100%"
 height="220"
 frameborder="0"
-allow="autoplay"
 allowfullscreen
-style="border-radius:10px;border:none;">
+style="border:none;border-radius:10px;">
 </iframe>
 
 </div>
-`
+`;
 
-})
+});
 
-document.getElementById("listMateri").innerHTML = html
+document.getElementById("listMateri").innerHTML = html;
 
-  }
+}
 
-console.log("materi jalan")
-  window.onload = function(){
+window.onload = function(){
 loadMateri();
-  }
+}
 
 </script>
 </body>
