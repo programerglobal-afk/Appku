@@ -1128,8 +1128,14 @@ Admin 2 Iksan
 
 </div>
 </div>
-
 <style>
+.kelas-box{
+background:#111827;
+padding:15px;
+border-radius:15px;
+margin-top:15px;
+color:white;
+}
 @keyframes goyang{
 0%{transform:translateY(0px);}
 50%{transform:translateY(-8px);}
@@ -1185,13 +1191,7 @@ let html = ""
 data.forEach((m)=>{
 
 html += `
-<div style="
-background:#111827;
-padding:15px;
-border-radius:15px;
-margin-top:15px;
-color:white;
-">
+<div class="kelas-box">
 
 <h3>${m.judul}</h3>
 
