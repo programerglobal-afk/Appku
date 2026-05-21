@@ -834,7 +834,7 @@ localStorage.setItem("allKeys", JSON.stringify(allKeys))
 tampilKey()
 
 } 
-function kirimMateri(){
+window.kirimMateri = function(){
 
 const kelas =
 document.getElementById("materiKelas").value;
@@ -850,9 +850,8 @@ alert("Lengkapi data");
 return;
 }
 
-const materi = JSON.parse(
-localStorage.getItem("allMateri")
-) || [];
+let materi =
+JSON.parse(localStorage.getItem("allMateri")) || [];
 
 materi.push({
 kelas:kelas,
