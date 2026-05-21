@@ -634,9 +634,106 @@ return;
 
 }
 
-if(user.active !== "aktif"){
+if(userData.status !== "aktif"){
 
-alert("Akun tidak aktif");
+Swal.fire({
+background:"#08142a",
+color:"#fff",
+width:"340px",
+borderRadius:"24px",
+showConfirmButton:false,
+html:`
+
+<div style="padding:10px 5px;">
+
+<div style="
+width:75px;
+height:75px;
+margin:auto;
+border-radius:50%;
+background:linear-gradient(135deg,#ff9900,#ff3d00);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:38px;
+box-shadow:0 0 25px rgba(255,115,0,0.5);
+margin-bottom:20px;
+">
+🔒
+</div>
+
+<h2 style="
+font-size:25px;
+margin-bottom:15px;
+font-weight:bold;
+background:linear-gradient(to right,#ffb300,#ff3d00);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+">
+Akun Belum Aktif
+</h2>
+
+<p style="
+font-size:14px;
+line-height:1.8;
+color:#cbd5e1;
+margin-bottom:25px;
+">
+
+Segera lakukan pengaktifan akun agar bisa masuk ke tools.
+
+<br><br>
+
+Biaya yang anda keluarkan nanti akan kita masukan ke dalam saldo koin untuk menggunakan fitur Trafik Service dan AI Tools.
+
+</p>
+
+<a href="https://wa.me/6282131974325?text=Kak%20mau%20aktifasi"
+target="_blank"
+style="
+text-decoration:none;
+">
+
+<button style="
+width:100%;
+padding:15px;
+border:none;
+border-radius:16px;
+background:linear-gradient(to right,#ff9100,#ff3d00);
+color:white;
+font-size:15px;
+font-weight:bold;
+cursor:pointer;
+box-shadow:0 0 20px rgba(255,94,0,0.4);
+margin-bottom:12px;
+">
+
+🚀 Aktifkan Sekarang
+
+</button>
+
+</a>
+
+<button onclick="Swal.close()"
+style="
+width:100%;
+padding:13px;
+border:none;
+border-radius:16px;
+background:#111827;
+color:#cbd5e1;
+font-size:14px;
+cursor:pointer;
+">
+
+Tutup
+
+</button>
+
+</div>
+
+`
+});
 
 return;
 
