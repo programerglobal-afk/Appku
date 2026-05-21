@@ -834,7 +834,7 @@ localStorage.setItem("allKeys", JSON.stringify(allKeys))
 tampilKey()
 
 } 
-window.kirimMateri = function(){
+window.kirimMateri = async function(){
 
 const kelas =
 document.getElementById("materiKelas").value;
@@ -850,25 +850,26 @@ alert("Lengkapi data");
 return;
 }
 
-let materi =
-JSON.parse(localStorage.getItem("allMateri")) || [];
+const { error } = await client
+.from("materi")
+.insert([{
+kelas: kelas,
+judul: judul,
+link: link,
+lock: kelas !== "exclusive"
+}])
 
-materi.push({
-kelas:kelas,
-judul:judul,
-link:link,
-lock:kelas !== "exclusive"
-});
-
-localStorage.setItem(
-"allMateri",
-JSON.stringify(materi)
-);
+if(error){
+alert("Gagal kirim materi");
+console.log(error);
+return;
+}
 
 alert("Materi berhasil dikirim");
 
 document.getElementById("judulMateri").value="";
 document.getElementById("videoMateri").value="";
+}
 }
 tampilKey()
 </script>
