@@ -430,7 +430,6 @@ font-weight:bold;
 ">
 Kirim Materi
 </button>
-
 <br><br>
 
 <div id="listMateri"></div>
@@ -834,41 +833,43 @@ localStorage.setItem("allKeys", JSON.stringify(allKeys))
 
 tampilKey()
 
-}
-  async function kirimMateri(){
+} 
+function kirimMateri(){
 
 const kelas =
-document.getElementById("kelasMateri").value;
+document.getElementById("materiKelas").value;
 
 const judul =
 document.getElementById("judulMateri").value;
 
 const link =
-document.getElementById("linkMateri").value;
+document.getElementById("videoMateri").value;
 
 if(!judul || !link){
 alert("Lengkapi data");
 return;
 }
 
-const lock =
-kelas === "exclusif"
-? false
-: true;
+const materi = JSON.parse(
+localStorage.getItem("allMateri")
+) || [];
 
-await supabaseClient
-.from("materi")
-.insert([{
+materi.push({
 kelas:kelas,
 judul:judul,
 link:link,
-lock:lock
-}]);
+lock:kelas !== "exclusive"
+});
+
+localStorage.setItem(
+"allMateri",
+JSON.stringify(materi)
+);
 
 alert("Materi berhasil dikirim");
 
-loadMateri();
-
+document.getElementById("judulMateri").value="";
+document.getElementById("videoMateri").value="";
 }
 tampilKey()
 </script>
