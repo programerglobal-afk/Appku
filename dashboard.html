@@ -866,20 +866,26 @@ document.getElementById("usernameText")
 
 /* SIDEBAR */
 
+/* SIDEBAR */
+
 function toggleSidebar(){
 
 const sidebar =
 document.getElementById("sidebar");
 
-if(sidebar){
-sidebar.classList.toggle("active");
-}
-
 const overlay =
 document.getElementById("overlay");
 
-if(overlay){
-overlay.classList.toggle("active");
+if(sidebar.classList.contains("active")){
+
+sidebar.classList.remove("active");
+overlay.classList.remove("active");
+
+}else{
+
+sidebar.classList.add("active");
+overlay.classList.add("active");
+
 }
 
 }
