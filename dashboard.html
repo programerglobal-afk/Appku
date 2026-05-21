@@ -1144,11 +1144,11 @@ color:white;
 </style>
 
 <script>
-  const supabaseUrl = "https://nluwbpdgsctuxuasnkti.supabase.co"
+const supabaseUrl = "https://nluwbpdgsctuxuasnkti.supabase.co"
 
 const supabaseKey = "sb_publishable_jYSLtUH4UKxt_QQRhGPlgQ_N3HQ5gFu"
 
-const client = window.supabase.createClient(
+const client = supabase.createClient(
 supabaseUrl,
 supabaseKey
 )
