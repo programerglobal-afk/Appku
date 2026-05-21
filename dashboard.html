@@ -890,7 +890,11 @@ page.style.display = "none";
 document.getElementById(id)
 .style.display = "block";
 
-toggleSidebar();
+document.getElementById("sidebar")
+.classList.remove("active");
+
+document.getElementById("overlay")
+.classList.remove("active");
 
 }
 
