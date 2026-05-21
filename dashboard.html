@@ -866,8 +866,6 @@ document.getElementById("usernameText")
 
 /* SIDEBAR */
 
-/* SIDEBAR */
-
 function toggleSidebar(){
 
 const sidebar =
@@ -876,19 +874,15 @@ document.getElementById("sidebar");
 const overlay =
 document.getElementById("overlay");
 
-if(sidebar.classList.contains("active")){
+if(!sidebar || !overlay){
+return;
+}
 
-sidebar.classList.remove("active");
-overlay.classList.remove("active");
-
-}else{
-
-sidebar.classList.add("active");
-overlay.classList.add("active");
+sidebar.classList.toggle("active");
+overlay.classList.toggle("active");
 
 }
 
-}
 /* PAGE */
 
 function showPage(id){
