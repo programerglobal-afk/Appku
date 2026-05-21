@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Flowbittools Dashboard</title>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:sans-serif;
+}
+
+body{
+background:#020617;
+color:white;
+overflow-x:hidden;
+}
+
+/* HEADER */
+
+.header{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:65px;
+background:#081120;
+display:flex;
+align-items:center;
+padding:0 15px;
+z-index:1000;
+border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+.menu-btn{
+background:none;
+border:none;
+color:white;
+font-size:28px;
+cursor:pointer;
+margin-right:15px;
+}
+
+.logo{
+font-size:22px;
+font-weight:bold;
+background:linear-gradient(to right,#ffb100,#ff4d00);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+position:fixed;
+top:0;
+left:-260px;
+width:240px;
+height:100vh;
+background:#0b1220;
+padding:18px;
+z-index:2000;
+transition:0.3s;
+overflow:auto;
+}
+
+.sidebar.active{
+left:0;
+}
+
+.sidebar-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+}
+
+.sidebar-top h2{
+font-size:22px;
+background:linear-gradient(to right,#ffb100,#ff4d00);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.close-btn{
+background:none;
+border:none;
+color:white;
+font-size:24px;
+cursor:pointer;
+}
+
+.sidebar-title{
+font-size:11px;
+letter-spacing:2px;
+color:#6b7280;
+margin:18px 0 10px;
+}
+
+.sidebar button{
+width:100%;
+padding:13px;
+border:none;
+background:#111827;
+color:white;
+margin-bottom:10px;
+border-radius:14px;
+font-size:14px;
+cursor:pointer;
+text-align:left;
+}
+
+.sidebar button:hover{
+background:#172033;
+}
+
+.submenu{
+display:none;
+padding-left:10px;
+}
+
+.submenu button{
+background:#192235;
+font-size:13px;
+}
+
+/* OVERLAY */
+
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.6);
+display:none;
+z-index:1500;
+}
+
+.overlay.active{
+display:block;
+}
+
+/* MAIN */
+
+.main{
+padding:80px 10px 100px;
+}
+
+/* PAGE */
+
+.page{
+display:none;
+}
+
+#dashboard{
+display:block;
+}
+
+/* CARD */
+
+.card{
+background:#08142a;
+padding:15px;
+border-radius:22px;
+margin-bottom:15px;
+border:1px solid rgba(255,255,255,0.05);
+}
+
+/* PROFILE */
+
+.profile{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.profile img{
+width:60px;
+height:60px;
+border-radius:50%;
+border:2px solid orange;
+}
+
+.status{
+display:inline-block;
+background:#22c55e;
+padding:4px 10px;
+border-radius:30px;
+font-size:11px;
+margin-top:6px;
+}
+
+/* TITLE */
+
+.title{
+font-size:19px;
+font-weight:bold;
+margin-bottom:15px;
+}
+
+/* INPUT */
+
+.input,
+textarea,
+select{
+width:100%;
+padding:13px;
+border:none;
+outline:none;
+background:#0d1729;
+border-radius:14px;
+color:white;
+margin-bottom:12px;
+font-size:14px;
+}
+
+textarea{
+min-height:100px;
+resize:none;
+}
+
+/* BUTTON */
+
+.btn{
+width:100%;
+padding:13px;
+border:none;
+border-radius:14px;
+background:linear-gradient(to right,#ff9100,#ff3d00);
+color:white;
+font-size:14px;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* MATERI */
+
+.materi{
+background:#0f172a;
+padding:12px;
+border-radius:18px;
+margin-top:12px;
+}
+
+.materi h3{
+font-size:15px;
+margin-bottom:10px;
+}
+
+.materi iframe{
+width:100%;
+height:180px;
+border:none;
+border-radius:14px;
+}
+
+/* FLOATING ADMIN */
+
+.floating-admin{
+position:fixed;
+right:10px;
+bottom:20px;
+z-index:99999;
+display:flex;
+flex-direction:column;
+gap:8px;
+}
+
+.admin-box{
+display:flex;
+align-items:center;
+gap:8px;
+text-decoration:none;
+padding:8px 10px;
+width:140px;
+border-radius:16px;
+box-shadow:0 0 15px rgba(0,0,0,0.3);
+backdrop-filter:blur(10px);
+}
+
+.admin1{
+background:linear-gradient(135deg,#22c55e,#16a34a);
+}
+
+.admin2{
+background:linear-gradient(135deg,#3b82f6,#2563eb);
+}
+
+.admin-box img{
+width:32px;
+height:32px;
+border-radius:50%;
+background:white;
+padding:5px;
+}
+
+.admin-box h4{
+font-size:11px;
+margin:0;
+color:white;
+line-height:1.2;
+}
+
+.admin-box p{
+font-size:9px;
+margin:0;
+color:#e5e7eb;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.sidebar{
+width:220px;
+}
+
+.admin-box{
+width:130px;
+padding:7px 9px;
+}
+
+.admin-box img{
+width:28px;
+height:28px;
+}
+
+.admin-box h4{
+font-size:10px;
+}
+
+.admin-box p{
+font-size:8px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="header">
+
+<button class="menu-btn" onclick="toggleSidebar()">
+☰
+</button>
+
+<div class="logo">
+Flowbittools
+</div>
+
+</div>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar" id="sidebar">
+
+<div class="sidebar-top">
+
+<h2>Flowbittools</h2>
+
+<button class="close-btn" onclick="toggleSidebar()">
+×
+</button>
+
+</div>
+
+<div class="sidebar-title">
+MENU
+</div>
+
+<button onclick="showPage('dashboard')">
+🏠 Dashboard
+</button>
+
+<button onclick="showPage('trafik')">
+🚀 Trafik
+</button>
+
+<button onclick="showPage('ai')">
+🤖 AI Tools
+</button>
+
+<div class="sidebar-title">
+KELAS
+</div>
+
+<button onclick="toggleKelas()">
+🎓 Chatbot Kelas
+</button>
+
+<div class="submenu" id="submenuKelas">
+
+<button onclick="cekKey('premium')">
+⭐ Premium
+</button>
+
+<button onclick="cekKey('private')">
+🔒 Private
+</button>
+
+<div class="submenu" id="privateSub">
+<button onclick="showPage('privateAsisten')">
+🤖 Asisten
+</button>
+</div>
+
+<button onclick="cekKey('vip')">
+👑 VIP
+</button>
+
+<div class="submenu" id="vipSub">
+<button onclick="showPage('vipAsisten')">
+🤖 Asisten
+</button>
+</div>
+
+<button onclick="cekKey('exclusive')">
+💎 Exclusive
+</button>
+
+<div class="submenu" id="exclusiveSub">
+
+<button onclick="showPage('exclusiveAsisten')">
+🤖 Asisten
+</button>
+
+<button onclick="showPage('exclusiveTugas')">
+📝 Tugas
+</button>
+
+</div>
+
+</div>
+
+<button onclick="showPage('topup')">
+💰 Top Up
+</button>
+
+<button onclick="logout()">
+🚪 Logout
+</button>
+
+</div>
+
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<!-- DASHBOARD -->
+
+<div id="dashboard" class="page">
+
+<div class="card">
+
+<div class="profile">
+
+<img src="https://i.imgur.com/ZdJSK3Y.png">
+
+<div>
+
+<p style="color:#aaa;font-size:13px;">
+Nama User
+</p>
+
+<h2 id="usernameText">
+User
+</h2>
+
+<div class="status">
+AKTIF
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- TRAFIK -->
+
+<div id="trafik" class="page">
+
+<div class="card">
+
+<div class="title">
+🚀 Trafik Service
+</div>
+
+<input class="input" placeholder="Masukan Link">
+
+<select>
+<option>1000 View</option>
+<option>2000 View</option>
+</select>
+
+<button class="btn">
+Booster Sekarang
+</button>
+
+</div>
+
+</div>
+
+<!-- AI -->
+
+<div id="ai" class="page">
+
+<div class="card">
+
+<div class="title">
+🤖 AI Tools
+</div>
+
+<input class="input" placeholder="Nama Produk">
+
+<textarea placeholder="Deskripsi"></textarea>
+
+<button class="btn">
+Generate
+</button>
+
+</div>
+
+</div>
+
+<!-- PREMIUM -->
+
+<div id="premium" class="page">
+
+<div class="card">
+
+<div class="title">
+⭐ Kelas Premium
+</div>
+
+<div id="listPremium">
+Loading...
+</div>
+
+</div>
+
+</div>
+
+<!-- PRIVATE -->
+
+<div id="private" class="page">
+
+<div class="card">
+
+<div class="title">
+🔒 Kelas Private
+</div>
+
+<div id="listPrivate">
+Loading...
+</div>
+
+</div>
+
+</div>
+
+<!-- VIP -->
+
+<div id="vip" class="page">
+
+<div class="card">
+
+<div class="title">
+👑 Kelas VIP
+</div>
+
+<div id="listVip">
+Loading...
+</div>
+
+</div>
+
+</div>
+
+<!-- EXCLUSIVE -->
+
+<div id="exclusive" class="page">
+
+<div class="card">
+
+<div class="title">
+💎 Kelas Exclusive
+</div>
+
+<div id="listExclusive">
+Loading...
+</div>
+
+</div>
+
+</div>
+
+<!-- SUBMENU -->
+
+<div id="privateAsisten" class="page">
+<div class="card">
+<div class="title">🤖 Asisten Private</div>
+<p>Isi materi asisten private</p>
+</div>
+</div>
+
+<div id="vipAsisten" class="page">
+<div class="card">
+<div class="title">🤖 Asisten VIP</div>
+<p>Isi materi asisten vip</p>
+</div>
+</div>
+
+<div id="exclusiveAsisten" class="page">
+<div class="card">
+<div class="title">🤖 Asisten Exclusive</div>
+<p>Isi materi asisten exclusive</p>
+</div>
+</div>
+
+<div id="exclusiveTugas" class="page">
+<div class="card">
+<div class="title">📝 Tugas Exclusive</div>
+<p>Isi tugas exclusive</p>
+</div>
+</div>
+
+<!-- TOPUP -->
+
+<div id="topup" class="page">
+
+<div class="card">
+
+<div class="title">
+💰 Top Up
+</div>
+
+<p style="line-height:1.8;color:#ccc;font-size:14px;">
+
+BRI Thomas Ade Prabowo
+<br>
+676201000757500
+
+</p>
+
+<br>
+
+<a href="https://wa.me/6282131974325" target="_blank">
+
+<button class="btn">
+Konfirmasi WhatsApp
+</button>
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* SUPABASE */
+
+const supabaseUrl =
+"https://nluwpbdgsctuxuasnkti.supabase.co";
+
+const supabaseKey =
+"sb_publishable_jYSLtUH4UKxt_QQRhGPlgQ_N3HQ5gFu";
+
+const { createClient } = supabase;
+
+const client =
+createClient(supabaseUrl,supabaseKey);
+
+/* LOGIN */
+
+const loginUser =
+localStorage.getItem("loginUser");
+
+if(!loginUser){
+window.location.href = "index.html";
+}
+
+/* USERNAME */
+
+const username =
+localStorage.getItem("username");
+
+if(username){
+document.getElementById("usernameText")
+.innerText = username;
+}
+
+/* SIDEBAR */
+
+function toggleSidebar(){
+
+document.getElementById("sidebar")
+.classList.toggle("active");
+
+document.getElementById("overlay")
+.classList.toggle("active");
+
+}
+
+/* PAGE */
+
+function showPage(id){
+
+document.querySelectorAll(".page")
+.forEach(page=>{
+page.style.display = "none";
+});
+
+const page =
+document.getElementById(id);
+
+if(page){
+page.style.display = "block";
+}
+
+document.getElementById("sidebar")
+.classList.remove("active");
+
+document.getElementById("overlay")
+.classList.remove("active");
+
+}
+
+/* SUBMENU */
+
+function toggleKelas(){
+
+const sub =
+document.getElementById("submenuKelas");
+
+if(sub.style.display === "block"){
+sub.style.display = "none";
+}else{
+sub.style.display = "block";
+}
+
+}
+
+/* LOGOUT */
+
+function logout(){
+
+localStorage.removeItem("loginUser");
+
+window.location.href = "index.html";
+
+}
+
+/* KEY */
+
+let unlocked =
+JSON.parse(localStorage.getItem("unlockKelas")) || [];
+
+function cekKey(kelas){
+
+if(unlocked.includes(kelas)){
+
+showPage(kelas);
+loadMateri(kelas);
+return;
+
+}
+
+let key =
+prompt("Masukan Key");
+
+if(!key){
+return;
+}
+
+let allKeys =
+JSON.parse(localStorage.getItem("allKeys")) || [];
+
+let cocok =
+allKeys.find(
+x => x.kelas === kelas &&
+x.key === key
+);
+
+if(cocok){
+
+unlocked.push(kelas);
+
+localStorage.setItem(
+"unlockKelas",
+JSON.stringify(unlocked)
+);
+
+showPage(kelas);
+
+loadMateri(kelas);
+
+if(kelas === "private"){
+document.getElementById("privateSub").style.display = "block";
+}
+
+if(kelas === "vip"){
+document.getElementById("vipSub").style.display = "block";
+}
+
+if(kelas === "exclusive"){
+document.getElementById("exclusiveSub").style.display = "block";
+}
+
+}else{
+
+alert("Key Salah");
+
+}
+
+}
+
+/* LOAD MATERI */
+
+async function loadMateri(kelas){
+
+let target = "";
+
+if(kelas === "premium"){
+target = "listPremium";
+}
+
+if(kelas === "private"){
+target = "listPrivate";
+}
+
+if(kelas === "vip"){
+target = "listVip";
+}
+
+if(kelas === "exclusive"){
+target = "listExclusive";
+}
+
+const box =
+document.getElementById(target);
+
+box.innerHTML =
+"<p style='color:#aaa'>Loading...</p>";
+
+const { data, error } =
+await client
+.from("materi")
+.select("*")
+.eq("kelas",kelas);
+
+if(error){
+
+console.log(error);
+
+box.innerHTML =
+"<p style='color:red'>Gagal load materi</p>";
+
+return;
+
+}
+
+if(!data || data.length === 0){
+
+box.innerHTML =
+"<p style='color:orange'>Materi kosong</p>";
+
+return;
+
+}
+
+let html = "";
+
+data.forEach((m)=>{
+
+let video = "";
+
+if(m.link){
+
+video = m.link
+.replace("/view?usp=drivesdk","/preview")
+.replace("/view","/preview");
+
+}
+
+html += `
+
+<div class="materi">
+
+<h3>${m.judul}</h3>
+
+<iframe
+src="${video}"
+allowfullscreen>
+</iframe>
+
+</div>
+
+`;
+
+});
+
+box.innerHTML = html;
+
+}
+
+/* AUTO */
+
+window.onload = function(){
+
+if(unlocked.includes("private")){
+document.getElementById("privateSub").style.display = "block";
+}
+
+if(unlocked.includes("vip")){
+document.getElementById("vipSub").style.display = "block";
+}
+
+if(unlocked.includes("exclusive")){
+document.getElementById("exclusiveSub").style.display = "block";
+}
+
+}
+
+</script>
+
+<!-- FLOATING ADMIN -->
+
+<div class="floating-admin">
+
+<a href="https://wa.me/6282131974325"
+target="_blank"
+class="admin-box admin1">
+
+<img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
+
+<div>
+<h4>Admin Paijo</h4>
+<p>Aktif</p>
+</div>
+
+</a>
+
+<a href="https://wa.me/6285810509177"
+target="_blank"
+class="admin-box admin2">
+
+<img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
+
+<div>
+<h4>Admin Iksan</h4>
+<p>Fast Respon</p>
+</div>
+
+</a>
+
+</div>
+
+</body>
+</html>
