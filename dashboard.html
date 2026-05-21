@@ -894,18 +894,22 @@ page.style.display = "none";
 
 });
 
-document.getElementById(id)
-.style.display = "block";
+const target =
+document.getElementById(id);
+
+if(target){
+target.style.display = "block";
+}
 
 const sidebar =
 document.getElementById("sidebar");
 
+const overlay =
+document.getElementById("overlay");
+
 if(sidebar){
 sidebar.classList.remove("active");
 }
-
-const overlay =
-document.getElementById("overlay");
 
 if(overlay){
 overlay.classList.remove("active");
