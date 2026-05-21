@@ -1144,15 +1144,22 @@ color:white;
 </style>
 
 <script>
+<script src="https://unpkg.com/@supabase/supabase-js"></script>
+
+<script>
+
 const supabaseUrl = "https://nluwbpdgsctuxuasnkti.supabase.co"
 
 const supabaseKey = "sb_publishable_jYSLtUH4UKxt_QQRhGPlgQ_N3HQ5gFu"
 
-const client = supabase.createClient(
+const { createClient } = supabase
+
+const client = createClient(
 supabaseUrl,
 supabaseKey
 )
-  const cekLogin = localStorage.getItem("loginUser");
+
+const cekLogin = localStorage.getItem("loginUser");
 
 if(!cekLogin){
 window.location.href = "index.html";
@@ -1175,54 +1182,51 @@ const username = localStorage.getItem("username");
 if(username){
 document.getElementById("usernameText").innerText = username;
 }
+
 async function loadMateri(){
 
 const { data, error } = await client
 .from("materi")
-.select("*");
-console.log(data)
+.select("*")
+.eq("kelas","premium");
+
 if(error){
-console.log(error)
-return
+console.log(error);
+return;
 }
 
-let html = ""
+let html = "";
+
 data.forEach((m)=>{
 
+let linkVideo = m.link
+.replace('/view?usp=drivesdk','/preview')
+.replace('/view','/preview');
+
 html += `
-<div style="
-background:#111827;
-padding:15px;
-border-radius:15px;
-margin-top:15px;
-color:white;
-">
+
+<div class="kelas-box">
 
 <h3>${m.judul}</h3>
 
 <iframe
-src="${m.link.replace('/view?usp=drivesdk','/preview').replace('/view','/preview')}"
-width="100%"
-height="220"
-frameborder="0"
-allow="autoplay"
-allowfullscreen
-style="border-radius:10px;border:none;">
+src="${linkVideo}"
+allowfullscreen>
 </iframe>
 
 </div>
-`
 
-})
+`;
 
-document.getElementById("listMateri").innerHTML = html
+});
 
-  }
+document.getElementById("listMateri").innerHTML = html;
 
-console.log("materi jalan")
-  window.onload = function(){
+}
+
+window.onload = function(){
 loadMateri();
-  }
+}
 
 </script>
 </body>
