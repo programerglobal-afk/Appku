@@ -982,6 +982,63 @@ loadMateri("exclusive","listExclusive");
 alert("Key Salah");
 
 }
+let unlockedKelas = JSON.parse(localStorage.getItem("unlockedKelas")) || [];
+window.onload = function(){
+
+if(localStorage.getItem("exclusiveLogin") === "true"){
+document.getElementById("exclusiveMenu").style.display = "block";
+}
+
+}
+function cekKey(kelas){
+
+if(unlockedKelas.includes(kelas)){
+showPage(kelas);
+return;
+}
+
+let userKey =
+prompt("Masukan Key Akses");
+
+let allKeys =
+JSON.parse(localStorage.getItem("allKeys")) || [];
+
+let cocok = allKeys.find(
+k => k.kelas === kelas &&
+k.key === userKey
+);
+
+if(cocok){
+if(kelas === "exclusive"){
+localStorage.setItem("exclusiveLogin","true");
+document.getElementById("exclusiveMenu").style.display = "block";
+}
+unlockedKelas.push(kelas);
+localStorage.setItem("unlockedKelas", JSON.stringify(unlockedKelas));
+
+showPage(kelas);
+
+if(kelas === "premium"){
+loadMateri("premium","listMateri");
+}
+
+if(kelas === "private"){
+loadMateri("private","listPrivate");
+}
+
+if(kelas === "vip"){
+loadMateri("vip","listVip");
+}
+
+if(kelas === "exclusive"){
+loadMateri("exclusive","listExclusive");
+}
+
+}else{
+
+alert("Key Salah");
+
+}
 
 }
 
