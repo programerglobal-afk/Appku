@@ -213,6 +213,9 @@ margin-top:10px;
 
 <button onclick="showPage('assistant')">🛡 Asisten Admin</button>
 <button onclick="showAdminPage('keykelas'); tampilKey()">🔑 Key Kelas</button>
+<button class="menu-btn" onclick="showPage('sendMateri')">
+📚 Send Materi
+</button>
 
 <button onclick="logout()">🚪 Logout</button>
 
@@ -393,6 +396,44 @@ border-radius:15px;
 margin-top:15px;
 color:white;
 "></div>
+
+</div>
+<div id="sendMateri" class="card" style="display:none;">
+
+<h2>📚 Send Materi Kelas</h2>
+
+<select id="materiKelas">
+<option value="premium">Kelas Premium</option>
+<option value="private">Kelas Private</option>
+<option value="vip">Kelas VIP</option>
+<option value="exclusive">Kelas Exclusive</option>
+</select>
+
+<br><br>
+
+<input type="text" id="judulMateri" placeholder="Judul Materi">
+
+<br><br>
+
+<input type="text" id="videoMateri" placeholder="Link Video / Drive">
+
+<br><br>
+
+<button onclick="kirimMateri()" style="
+background:linear-gradient(90deg,#9333ea,#ec4899);
+border:none;
+padding:12px;
+border-radius:10px;
+color:white;
+width:100%;
+font-weight:bold;
+">
+Kirim Materi
+</button>
+
+<br><br>
+
+<div id="listMateri"></div>
 
 </div>
 <script>
@@ -792,6 +833,41 @@ allKeys.splice(index,1)
 localStorage.setItem("allKeys", JSON.stringify(allKeys))
 
 tampilKey()
+
+}
+  async function kirimMateri(){
+
+const kelas =
+document.getElementById("kelasMateri").value;
+
+const judul =
+document.getElementById("judulMateri").value;
+
+const link =
+document.getElementById("linkMateri").value;
+
+if(!judul || !link){
+alert("Lengkapi data");
+return;
+}
+
+const lock =
+kelas === "exclusif"
+? false
+: true;
+
+await supabaseClient
+.from("materi")
+.insert([{
+kelas:kelas,
+judul:judul,
+link:link,
+lock:lock
+}]);
+
+alert("Materi berhasil dikirim");
+
+loadMateri();
 
 }
 tampilKey()
