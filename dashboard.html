@@ -868,14 +868,21 @@ document.getElementById("usernameText")
 
 function toggleSidebar(){
 
-document.getElementById("sidebar")
-.classList.toggle("active");
+const sidebar =
+document.getElementById("sidebar");
 
-document.getElementById("overlay")
-.classList.toggle("active");
-
+if(sidebar){
+sidebar.classList.toggle("active");
 }
 
+const overlay =
+document.getElementById("overlay");
+
+if(overlay){
+overlay.classList.toggle("active");
+}
+
+}
 /* PAGE */
 
 function showPage(id){
