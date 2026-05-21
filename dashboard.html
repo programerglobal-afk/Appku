@@ -1187,14 +1187,16 @@ return
 }
 
 let html = ""
-if(!data){
-alert("Data kosong")
-return
-}
 data.forEach((m)=>{
 
 html += `
-<div class="kelas-box">
+<div style="
+background:#111827;
+padding:15px;
+border-radius:15px;
+margin-top:15px;
+color:white;
+">
 
 <h3>${m.judul}</h3>
 
