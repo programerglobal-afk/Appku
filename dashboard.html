@@ -1179,15 +1179,18 @@ async function loadMateri(){
 
 const { data, error } = await client
 .from("materi")
-.select("*")
-
+.select("*");
+console.log(data)
 if(error){
 console.log(error)
 return
 }
 
 let html = ""
-
+if(!data){
+alert("Data kosong")
+return
+}
 data.forEach((m)=>{
 
 html += `
