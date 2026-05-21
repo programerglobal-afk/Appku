@@ -262,113 +262,31 @@ border:none;
 border-radius:14px;
 }
 
-<!-- FLOATING WA -->
-<div style="
-position:fixed;
-bottom:20px;
-right:20px;
-z-index:999;
-animation:goyang 2s infinite;
-">
+<!-- FLOATING ADMIN -->
+<div class="floating-admin">
 
-<a href="https://wa.me/6282131974325" target="_blank">
+<a href="https://wa.me/6282131974325?text=Halo%20Admin%20Mbah%20Paijo"
+target="_blank"
+class="admin-box admin1">
 
-<div style="
-background:linear-gradient(90deg,#22c55e,#16a34a);
-padding:15px;
-border-radius:20px;
-box-shadow:0 0 20px rgba(34,197,94,0.4);
-width:220px;
-">
-
-<div style="
-display:flex;
-align-items:center;
-gap:10px;
-">
-
-<img src="https://i.imgur.com/ZdJSK3Y.png"
-style="
-width:45px;
-height:45px;
-border-radius:50%;
-">
+<img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
 
 <div>
-
-<p style="
-margin:0;
-color:white;
-font-weight:bold;
-font-size:14px;
-">
-Admin 1 Mbah Paijo
-</p>
-
-<p style="
-margin:0;
-color:#dcfce7;
-font-size:12px;
-">
-082131974325
-</p>
-
-</div>
-
-</div>
-
+<h4>Admin Mbah Paijo</h4>
+<p>Aktif 24 Jam</p>
 </div>
 
 </a>
 
-<br>
+<a href="https://wa.me/6285810509177?text=Halo%20Admin%20Iksan"
+target="_blank"
+class="admin-box admin2">
 
-<a href="https://wa.me/6285810509177" target="_blank">
-
-<div style="
-background:linear-gradient(90deg,#3b82f6,#06b6d4);
-padding:15px;
-border-radius:20px;
-box-shadow:0 0 20px rgba(59,130,246,0.4);
-width:220px;
-">
-
-<div style="
-display:flex;
-align-items:center;
-gap:10px;
-">
-
-<img src="https://i.imgur.com/q7s7YpD.png"
-style="
-width:45px;
-height:45px;
-border-radius:50%;
-">
+<img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
 
 <div>
-
-<p style="
-margin:0;
-color:white;
-font-weight:bold;
-font-size:14px;
-">
-Admin 2 Iksan
-</p>
-
-<p style="
-margin:0;
-color:#dbeafe;
-font-size:12px;
-">
-085810509177
-</p>
-
-</div>
-
-</div>
-
+<h4>Admin Iksan</h4>
+<p>Fast Respon</p>
 </div>
 
 </a>
@@ -377,34 +295,88 @@ font-size:12px;
 
 <style>
 
-@keyframes goyang{
-0%{transform:translateY(0px);}
-50%{transform:translateY(-8px);}
-100%{transform:translateY(0px);}
+.floating-admin{
+position:fixed;
+right:14px;
+bottom:14px;
+z-index:9999;
+display:flex;
+flex-direction:column;
+gap:10px;
 }
 
-@keyframes putar{
+.admin-box{
+display:flex;
+align-items:center;
+gap:10px;
+text-decoration:none;
+padding:12px;
+width:210px;
+border-radius:18px;
+backdrop-filter:blur(10px);
+animation:naikTurun 2s infinite ease-in-out;
+box-shadow:0 0 20px rgba(0,0,0,0.35);
+}
+
+.admin1{
+background:linear-gradient(135deg,#22c55e,#16a34a);
+}
+
+.admin2{
+background:linear-gradient(135deg,#3b82f6,#2563eb);
+}
+
+.admin-box img{
+width:42px;
+height:42px;
+border-radius:50%;
+background:white;
+padding:6px;
+}
+
+.admin-box h4{
+margin:0;
+font-size:14px;
+color:white;
+}
+
+.admin-box p{
+margin:2px 0 0;
+font-size:11px;
+color:#e5e7eb;
+}
+
+@keyframes naikTurun{
+0%{
+transform:translateY(0px);
+}
+50%{
+transform:translateY(-6px);
+}
 100%{
-transform:rotate(360deg);
+transform:translateY(0px);
 }
 }
 
-@keyframes naik1{
-0%{height:60%;}
-100%{height:80%;}
+@media(max-width:600px){
+
+.admin-box{
+width:170px;
+padding:10px;
 }
 
-@keyframes naik2{
-0%{height:40%;}
-100%{height:55%;}
+.admin-box h4{
+font-size:12px;
 }
 
-@keyframes naik3{
-0%{height:70%;}
-100%{height:95%;}
+.admin-box p{
+font-size:10px;
+}
+
 }
 
 </style>
+
 </head>
 
 <body>
