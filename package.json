@@ -1,0 +1,11 @@
+{
+	"dependencies": {
+		"@supabase/supabase-js": "^2.106.2",
+		"@supabase/ssr": "^0.10.3",
+		"framer-motion": "^12.40.0",
+		"lucide-react": "^1.17.0",
+		"clsx": "^2.1.1",
+		"tailwind-merge": "^3.6.0",
+		"class-variance-authority": "^0.7.1"
+	}
+}
